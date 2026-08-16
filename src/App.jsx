@@ -1,3 +1,4 @@
+import MobileExperiencePrompt from './components/MobileExperiencePrompt.jsx'
 import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
 import TrustStrip from './components/TrustStrip.jsx'
@@ -31,6 +32,7 @@ export default function App() {
       <a href="#top" id="aadi-skip-link">
         Skip to content
       </a>
+      <MobileExperiencePrompt />
       <Navbar />
       <main>
         <Hero />

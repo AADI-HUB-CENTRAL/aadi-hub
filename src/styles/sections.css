@@ -256,6 +256,7 @@
   z-index: 200;
   visibility: hidden;
   transition: visibility 0.4s;
+  overflow: hidden;
 }
 
 .drawer.is-open {
@@ -4890,6 +4891,8 @@
   background: rgba(237, 241, 247, 0.04);
   min-width: 0;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .campus-chrome__tab b {

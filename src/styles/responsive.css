@@ -187,6 +187,10 @@
     margin-top: 24px;
   }
 
+  .campus-rail {
+    grid-template-columns: 1fr;
+  }
+
   .compare {
     grid-template-columns: 1fr;
     gap: 14px;
@@ -224,6 +228,14 @@
 
   .campus-hub__body {
     grid-template-columns: 1fr;
+  }
+
+  .campus-main {
+    min-width: 0;
+  }
+
+  .rep-journey > * {
+    min-width: 0;
   }
 
   .rep-levels {
@@ -717,6 +729,7 @@
 
   .future__svg {
     inset-inline: 14px;
+    width: auto;
   }
 
   .future__node {
@@ -727,6 +740,10 @@
     text-align: center;
     line-height: 1.15;
     overflow-wrap: anywhere;
+  }
+
+  .future__node {
+    left: clamp(48px, 15%, calc(100% - 48px)) !important;
   }
 
   .why__grid {
@@ -949,9 +966,27 @@
     width: 26px;
   }
 
+  .rep-profile__dims {
+    grid-template-columns: 1fr;
+  }
+
   .rep-profile__dims li {
-    grid-template-columns: 84px 1fr 30px;
+    grid-template-columns: auto 1fr 30px;
     gap: 10px;
+  }
+
+  .rep-profile__focus {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .rep-feed__row {
+    flex-wrap: wrap;
+  }
+
+  .rep-feed__cat {
+    margin-left: 0;
+    flex-basis: 100%;
+    text-align: left;
   }
 
   .rep-compare {
@@ -1091,6 +1126,20 @@
 
   .community__cta-btns .btn {
     width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .faq-nav__cats {
+    grid-template-columns: 1fr;
+  }
+
+  .rail-card--contributors {
+    grid-template-columns: 1fr;
+  }
+
+  .rep-profile__focus {
+    grid-template-columns: 1fr;
   }
 }
 
