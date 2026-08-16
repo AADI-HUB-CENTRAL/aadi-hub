@@ -40,10 +40,10 @@ const CONTRIBUTORS = [
 ]
 
 const CAMPUSES = [
-  { mono: 'MH', name: 'MITS Hub', note: 'Concept campus' },
-  { mono: 'SM', name: "St. Martin's", note: 'Concept campus' },
-  { mono: 'CT', name: 'Central Tech', note: 'Concept campus' },
-  { mono: 'NV', name: 'Northview', note: 'Concept campus' },
+  { img: '/assets/mitslogo.jpg', mono: 'MH', name: 'MITS Hub', note: 'Concept campus' },
+  { img: '/assets/stmartins.jpg', mono: 'SM', name: "St. Martin's", note: 'Concept campus' },
+  { img: '/assets/centraltech.jpg', mono: 'CT', name: 'Central Tech', note: 'Concept campus' },
+  { img: '/assets/northview.jpg', mono: 'NV', name: 'Northview', note: 'Concept campus' },
 ]
 
 const ECOSYSTEM = [
@@ -71,7 +71,7 @@ function CampusHub() {
       <div className="campus-hub">
         <div className="campus-hub__head">
           <span className="campus-mono campus-mono--lg" aria-hidden="true">
-            MH
+            <img src="/assets/mitslogo.jpg" alt="" />
           </span>
           <div className="campus-hub__name">
             <b>MITS HUB</b>
@@ -196,7 +196,7 @@ function CampusFlow() {
           <span className="flow-node__tag">Your campus</span>
           <div className="flow-node__body">
             <span className="campus-mono campus-mono--md" aria-hidden="true">
-              MH
+              <img src="/assets/mitslogo.jpg" alt="" />
             </span>
             <span className="flow-node__name">
               <b>MITS HUB</b>
@@ -338,7 +338,7 @@ function CampusSelector() {
         {CAMPUSES.map((c) => (
           <div className="card card--light card--hover campus-card" key={c.mono}>
             <span className="campus-card__mono" aria-hidden="true">
-              {c.mono}
+              {c.img ? <img src={c.img} alt="" /> : c.mono}
             </span>
             <span className="campus-card__name">
               <b>{c.name}</b>
