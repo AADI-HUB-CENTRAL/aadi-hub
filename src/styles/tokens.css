@@ -1,0 +1,60 @@
+:root {
+  --font-display: "Space Grotesk", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Night scale */
+  --night-950: #04060B;
+  --night-900: #070B14;
+  --night-850: #0A0F1C;
+  --night-800: #0D1322;
+  --night-700: #131B2E;
+  --night-600: #1B2539;
+  --night-500: #26334A;
+  --night-300: #9AA7BC;
+  --night-200: #C6CFDC;
+  --night-100: #E9EDF4;
+
+  /* Kiwi scale */
+  --kiwi-100: #EFFBC8;
+  --kiwi-200: #E2FA9E;
+  --kiwi-300: #D0F376;
+  --kiwi-400: #C2EE5C;
+  --kiwi-500: #B5E84A;
+  --kiwi-600: #9CCE33;
+  --kiwi-700: #7DA626;
+  --kiwi-glow: rgba(181, 232, 74, 0.32);
+  --kiwi-glow-soft: rgba(181, 232, 74, 0.12);
+
+  --paper: #F5F8F0;
+  --paper-deep: #EDF2E2;
+  --white: #FFFFFF;
+  --ink: #0B111E;
+
+  --text-on-dark: #EDF1F7;
+  --muted-on-dark: rgba(237, 241, 247, 0.64);
+  --faint-on-dark: rgba(237, 241, 247, 0.4);
+  --muted-on-light: #5A6579;
+  --border-dark: rgba(237, 241, 247, 0.1);
+  --border-dark-strong: rgba(237, 241, 247, 0.18);
+  --border-light: rgba(11, 17, 30, 0.1);
+  --border-light-strong: rgba(11, 17, 30, 0.16);
+
+  --radius-sm: 12px;
+  --radius: 18px;
+  --radius-lg: 26px;
+  --radius-xl: 36px;
+  --radius-pill: 999px;
+
+  --container: 1240px;
+  --gutter: clamp(20px, 4.5vw, 44px);
+  --nav-h: 76px;
+
+  --shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 44px -20px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 28px 60px -28px rgba(4, 6, 11, 0.7);
+  --shadow-lift: 0 2px 0 rgba(255, 255, 255, 0.06) inset, 0 34px 70px -26px rgba(4, 6, 11, 0.8);
+  --shadow-kiwi: 0 16px 36px -14px rgba(181, 232, 74, 0.45);
+  --shadow-card-light: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 24px 54px -28px rgba(11, 17, 30, 0.22);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
