@@ -532,6 +532,72 @@ h3 {
   }
 }
 
+@keyframes aadi-logo-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+@keyframes aadi-sparkle-1 {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-18px, -22px) scale(1);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-10px, -32px) scale(0.8);
+  }
+  80% {
+    opacity: 0;
+    transform: translate(-4px, -38px) scale(0);
+  }
+}
+
+@keyframes aadi-sparkle-2 {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(20px, -16px) scale(1);
+  }
+  65% {
+    opacity: 1;
+    transform: translate(14px, -30px) scale(0.7);
+  }
+  85% {
+    opacity: 0;
+    transform: translate(6px, -40px) scale(0);
+  }
+}
+
+@keyframes aadi-sparkle-3 {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(6px, -26px) scale(1);
+  }
+  70% {
+    opacity: 0.8;
+    transform: translate(2px, -38px) scale(0.6);
+  }
+  90% {
+    opacity: 0;
+    transform: translate(-2px, -44px) scale(0);
+  }
+}
+
 /* ---------- Reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {

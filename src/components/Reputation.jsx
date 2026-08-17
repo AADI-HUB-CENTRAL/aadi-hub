@@ -191,7 +191,7 @@ function RepLevels() {
           )
         })}
       </div>
-      <div className="rep-badges">
+      <div className="rep-badges rep-badges--section">
         {BADGES.map((b) => (
           <span className="rep-badge" key={b}>
             {b}
@@ -205,7 +205,7 @@ function RepLevels() {
 
 function RepCompare() {
   return (
-    <div className="rep-compare-wrap">
+    <div className="rep-compare-wrap rep-compare-wrap--section">
       <div className="rep-block__title">
         <h3>Attention vs contribution</h3>
         <span className="rep-block__sub">

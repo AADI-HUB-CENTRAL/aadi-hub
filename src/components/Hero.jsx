@@ -104,6 +104,25 @@ export default function Hero() {
       <div className="glow-kiwi" style={{ top: '-12%', right: '-8%', width: '52vw', height: '52vw', maxWidth: 720, maxHeight: 720 }} aria-hidden="true" />
 
       <div className="container hero__grid">
+        <h1 className="hero__title hero__title--mobile">
+          <span className="line">
+            <span className="in">The next generation</span>
+          </span>
+          <span className="line">
+            <span className="in text-outline">needs a place</span>
+          </span>
+          <span className="line">
+            <span className="in line--kiwi">of its own.</span>
+          </span>
+        </h1>
+        <div className="hero__logo-mobile">
+          <img
+            src="/AADI HUB LOGO.png"
+            alt="AADI HUB"
+            width="180"
+            height="auto"
+          />
+        </div>
         <div className="hero__content">
           <Reveal variant="fade" delay={120}>
             <span className="hero__tagline">

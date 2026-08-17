@@ -430,6 +430,20 @@
   padding: 8px 16px;
 }
 
+.hero__logo-mobile {
+  display: none;
+}
+
+.hero__logo-mobile img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero__title--mobile {
+  display: none;
+}
+
 .hero__tagline .dot {
   width: 6px;
   height: 6px;
@@ -1480,6 +1494,10 @@
   font-weight: 600;
   font-size: 1.05rem;
   color: var(--ink);
+}
+
+#identity .profile__copy__item h4 {
+  color: var(--text-on-dark);
 }
 
 .profile__copy__item p {
@@ -6815,10 +6833,10 @@
   position: absolute;
   left: -3%;
   right: -3%;
-  top: 56%;
+  top: 50%;
   height: 2px;
   background: var(--kiwi-500);
-  transform: rotate(-2deg);
+  transform: translateY(-50%) rotate(-2deg);
 }
 
 .movement__title {

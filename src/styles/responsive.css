@@ -282,6 +282,120 @@
     padding-block: clamp(76px, 14vw, 110px);
   }
 
+  .hero__tagline {
+    display: none;
+  }
+
+  .hero__content > .hero__title {
+    display: none;
+  }
+
+  .hero__title--mobile {
+    display: block;
+    order: -2;
+    text-align: center;
+    width: 100%;
+  }
+
+  .nav__login,
+  .nav__register {
+    display: flex;
+  }
+
+  .nav__login {
+    font-size: 0.78rem;
+    padding: 6px 8px;
+  }
+
+  .nav__register {
+    font-size: 0.72rem;
+    padding: 6px 12px;
+  }
+
+  .nav__right {
+    gap: 6px;
+  }
+
+  .hero__logo-mobile {
+    display: block;
+    order: -1;
+    width: 220px;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    animation: aadi-logo-float 3.5s ease-in-out infinite;
+  }
+
+  .hero__logo-mobile::before,
+  .hero__logo-mobile::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--kiwi-500);
+    box-shadow: 0 0 6px 2px rgba(181, 232, 74, 0.6), 0 0 12px 4px rgba(181, 232, 74, 0.3);
+    pointer-events: none;
+  }
+
+  .hero__logo-mobile::before {
+    top: 50%;
+    left: 50%;
+    animation: aadi-sparkle-1 2.8s ease-in-out infinite 0.2s;
+  }
+
+  .hero__logo-mobile::after {
+    top: 50%;
+    left: 50%;
+    animation: aadi-sparkle-2 3.2s ease-in-out infinite 0.9s;
+  }
+
+  .rep-badges--section {
+    display: none;
+  }
+
+  .rep-badges__note {
+    display: none;
+  }
+
+  .rep-compare-wrap--section {
+    display: none;
+  }
+
+  #future {
+    display: none;
+  }
+
+  .orb {
+    display: none;
+  }
+
+  .orb__card {
+    width: clamp(100px, 28vw, 132px);
+    padding: 10px;
+  }
+
+  .orb__card__icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+  }
+
+  .orb__card__icon svg,
+  .orb__card__icon i {
+    width: 15px;
+    height: 15px;
+  }
+
+  .orb__card__title {
+    font-size: 0.72rem;
+    margin-top: 6px;
+  }
+
+  .orb__card__sub {
+    font-size: 0.58rem;
+  }
+
   .community-rail {
     --rail-card: clamp(240px, 62vw, 268px);
     --rail-gap: 14px;
@@ -572,6 +686,15 @@
     gap: 2px;
   }
 
+  .crew-panel__match {
+    white-space: normal;
+    font-size: 0.68rem;
+  }
+
+  .crew-panel__note {
+    font-size: 0.6rem;
+  }
+
   .diff-grid {
     grid-template-columns: none;
     grid-auto-flow: column;
@@ -782,73 +905,6 @@
 
   .journey__ghost {
     display: none;
-  }
-
-  /* Orb switches from orbital layout to a mini-card grid */
-  .orb {
-    aspect-ratio: auto;
-    display: block;
-  }
-
-  .orb__ring,
-  .orb__dots,
-  .orb__svg,
-  .orb__pulse {
-    display: none;
-  }
-
-  .orb__hub {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin: 0 auto 26px;
-    width: 116px;
-  }
-
-  .orb__hub__label {
-    bottom: auto;
-    top: calc(100% + 10px);
-  }
-
-  .orb__cards {
-    display: none;
-  }
-
-  .orb__minis {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .orb__mini {
-    border-radius: var(--radius);
-    background: rgba(13, 19, 34, 0.86);
-    border: 1px solid var(--border-dark-strong);
-    padding: 14px;
-  }
-
-  .orb__mini__icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    display: grid;
-    place-items: center;
-    background: var(--kiwi-glow-soft);
-    color: var(--kiwi-500);
-  }
-
-  .orb__mini__title {
-    font-family: var(--font-display);
-    font-size: 0.82rem;
-    font-weight: 600;
-    margin-top: 9px;
-  }
-
-  .orb__mini__sub {
-    font-size: 0.68rem;
-    color: var(--faint-on-dark);
-    margin-top: 2px;
   }
 
   .future__map {
@@ -1143,12 +1199,6 @@
   }
 }
 
-@media (min-width: 641px) {
-  .orb__minis {
-    display: none !important;
-  }
-}
-
 /* Founding Team — responsive */
 @media (max-width: 960px) {
   .leadership__row--core {
@@ -1157,8 +1207,27 @@
 }
 
 @media (max-width: 640px) {
-  .leadership__row {
-    grid-template-columns: 1fr;
+  .leadership__row--founding,
+  .leadership__row--core {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: clamp(16px, 4vw, 24px);
+  }
+
+  .leadership__row--founding > *,
+  .leadership__row--core > * {
+    flex: 0 0 clamp(240px, 70vw, 300px);
+    scroll-snap-align: start;
+    height: auto;
+  }
+
+  .leadership__conn {
+    margin-block: clamp(14px, 3vw, 20px);
   }
 }
 
