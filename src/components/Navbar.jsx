@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import Logo, { BrandSymbol } from './Logo.jsx'
 import Button from './ui/Button.jsx'
 import { Menu, X } from './ui/Icons.jsx'
@@ -19,8 +20,11 @@ export default function Navbar() {
   const drawerRef = useRef(null)
   const burgerRef = useRef(null)
   const activeRef = useRef('')
+  const location = useLocation()
+  const isLanding = location.pathname === '/'
 
   useEffect(() => {
+    if (!isLanding) return
     const sections = LINKS.map((l) => document.getElementById(l.href.slice(1)))
       .filter(Boolean)
       .sort((a, b) =>
@@ -40,7 +44,7 @@ export default function Navbar() {
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [isLanding])
 
   useEffect(() => {
     const onKey = (e) => {
@@ -119,6 +123,29 @@ export default function Navbar() {
     scrollToId(id)
   }
 
+  if (!isLanding) {
+    return (
+      <header className="nav is-scrolled">
+        <div className="container nav__inner">
+          <Link to="/" className="nav__logo" aria-label="AADI HUB — back to home">
+            <BrandSymbol size={28} />
+            <img
+              className="nav__logo-img"
+              src="/AADI HUB LOGO.png"
+              alt="AADI HUB"
+              width={2170}
+              height={1080}
+            />
+          </Link>
+          <div className="nav__right">
+            <Link className="nav__login" to="/login">Login</Link>
+            <Button href="/form" variant="primary" size="sm" className="nav__register" arrow>Join AADI</Button>
+          </div>
+        </div>
+      </header>
+    )
+  }
+
   return (
     <header className={`nav${scrolled ? ' is-scrolled' : ''}`}>
       <div className="container nav__inner">
@@ -156,15 +183,11 @@ export default function Navbar() {
         </nav>
 
         <div className="nav__right">
-          <span className="nav__status">
-            <span className="nav__status-dot" aria-hidden="true" />
-            Early Access
-          </span>
-          <a className="nav__login" href="/login">
+          <Link className="nav__login" to="/login">
             Login
-          </a>
-          <Button href="/register" variant="primary" size="sm" className="nav__register" arrow>
-            Register
+          </Link>
+          <Button href="/form" variant="primary" size="sm" className="nav__register" arrow>
+            Join AADI
           </Button>
           <button
             className="nav__burger"
@@ -219,18 +242,18 @@ export default function Navbar() {
           </nav>
           <div className="drawer__divider" />
           <div className="drawer__actions">
-            <a className="drawer__login" href="/login" onClick={close}>
+            <Link className="drawer__login" to="/login" onClick={close}>
               Login
-            </a>
+            </Link>
             <Button
-              href="/register"
+              href="/form"
               variant="primary"
               size="lg"
               className="w-full drawer__register"
               arrow
               onClick={close}
             >
-              Register
+              Join AADI
             </Button>
           </div>
         </div>

@@ -3,6 +3,11 @@ import Button from './ui/Button.jsx'
 import { BrandSymbol } from './Logo.jsx'
 
 export default function FinalCta() {
+  const scrollToForm = (e) => {
+    e.preventDefault()
+    document.getElementById('join-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <section className="final" id="start">
       <div className="grid-bg grid-bg--masked" aria-hidden="true" />
@@ -29,7 +34,7 @@ export default function FinalCta() {
 
         <Reveal delay={340}>
           <div className="btn-row">
-            <Button href="#join" variant="primary" size="lg">
+            <Button href="#join-form" onClick={scrollToForm} variant="primary" size="lg">
               Join AADI
             </Button>
             <Button href="#vision" variant="secondary" size="lg" arrow>

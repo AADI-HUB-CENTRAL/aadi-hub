@@ -1,3 +1,4 @@
+import { Routes, Route } from 'react-router-dom'
 import MobileExperiencePrompt from './components/MobileExperiencePrompt.jsx'
 import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
@@ -25,13 +26,13 @@ import EarlyAccess from './components/EarlyAccess.jsx'
 import Faq from './components/Faq.jsx'
 import FinalCta from './components/FinalCta.jsx'
 import Footer from './components/Footer.jsx'
+import Login from './components/Login.jsx'
+import Register from './components/Register.jsx'
+import FormPage from './components/FormPage.jsx'
 
-export default function App() {
+function LandingPage() {
   return (
     <>
-      <a href="#top" id="aadi-skip-link">
-        Skip to content
-      </a>
       <MobileExperiencePrompt />
       <Navbar />
       <main>
@@ -61,6 +62,22 @@ export default function App() {
         <FinalCta />
       </main>
       <Footer />
+    </>
+  )
+}
+
+export default function App() {
+  return (
+    <>
+      <a href="#top" id="aadi-skip-link">
+        Skip to content
+      </a>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/form" element={<FormPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </>
   )
 }

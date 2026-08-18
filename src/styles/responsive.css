@@ -972,6 +972,11 @@
   .join-final .btn {
     width: 100%;
   }
+
+  .join-success__wa-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1228,6 +1233,27 @@
 
   .leadership__conn {
     margin-block: clamp(14px, 3vw, 20px);
+  }
+
+  .join-involvement__card {
+    padding: 12px 14px;
+  }
+
+  .join-involvement__title {
+    font-size: 0.82rem;
+  }
+
+  .join-involvement__desc {
+    font-size: 0.74rem;
+  }
+
+  .join-success__whatsapp {
+    margin-top: 22px;
+    padding-top: 18px;
+  }
+
+  .join-success__wa-sub {
+    font-size: 0.95rem;
   }
 }
 

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ArrowUpRight } from './Icons.jsx'
 
 export default function Button({
@@ -21,6 +22,13 @@ export default function Button({
     </>
   )
   if (href) {
+    if (href.startsWith('/') && !href.startsWith('//')) {
+      return (
+        <Link className={cls} to={href} {...rest}>
+          {content}
+        </Link>
+      )
+    }
     return (
       <a className={cls} href={href} {...rest}>
         {content}
