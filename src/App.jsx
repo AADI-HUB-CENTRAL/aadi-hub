@@ -3,7 +3,6 @@ import MobileExperiencePrompt from './components/MobileExperiencePrompt.jsx'
 import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
 import TrustStrip from './components/TrustStrip.jsx'
-import SocialPartners from './components/SocialPartners.jsx'
 import Problem from './components/Problem.jsx'
 import Differentiation from './components/Differentiation.jsx'
 import Vision from './components/Vision.jsx'
@@ -29,7 +28,11 @@ import FinalCta from './components/FinalCta.jsx'
 import Footer from './components/Footer.jsx'
 import Login from './components/Login.jsx'
 import Register from './components/Register.jsx'
+import CreateIdentity from './components/CreateIdentity.jsx'
 import FormPage from './components/FormPage.jsx'
+import PublicProfile from './components/PublicProfile.jsx'
+import Welcome from './components/Welcome.jsx'
+import Dashboard from './components/Dashboard.jsx'
 
 function LandingPage() {
   return (
@@ -39,7 +42,6 @@ function LandingPage() {
       <main>
         <Hero />
         <TrustStrip />
-        <SocialPartners />
         <Problem />
         <Differentiation />
         <Vision />
@@ -79,6 +81,14 @@ export default function App() {
         <Route path="/form" element={<FormPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/create-identity" element={<CreateIdentity />} />
+        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/profile" element={<Dashboard activeSection="profile" />} />
+        <Route path="/dashboard/aadi-id" element={<Dashboard activeSection="aadi-id" />} />
+        <Route path="/aadi-id" element={<Dashboard activeSection="aadi-id" />} />
+        <Route path="/profile/:aadiId" element={<PublicProfile />} />
+        <Route path="/u/:aadiId" element={<PublicProfile />} />
       </Routes>
     </>
   )
