@@ -139,7 +139,7 @@ export default function Navbar() {
           </Link>
           <div className="nav__right">
             <Link className="nav__login" to="/login">Login</Link>
-            <Button href="/register" variant="primary" size="sm" className="nav__register" arrow>Join AADI</Button>
+            <Button href="/form" variant="primary" size="sm" className="nav__register" arrow>Join AADI</Button>
           </div>
         </div>
       </header>
@@ -186,7 +186,7 @@ export default function Navbar() {
           <Link className="nav__login" to="/login">
             Login
           </Link>
-          <Button href="/register" variant="primary" size="sm" className="nav__register" arrow>
+          <Button href="/form" variant="primary" size="sm" className="nav__register" arrow>
             Join AADI
           </Button>
           <button
@@ -246,7 +246,7 @@ export default function Navbar() {
               Login
             </Link>
             <Button
-              href="/register"
+              href="/form"
               variant="primary"
               size="lg"
               className="w-full drawer__register"
