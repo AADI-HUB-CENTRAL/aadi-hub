@@ -162,7 +162,7 @@ function CampusHub() {
                 Build something useful for student life.
               </p>
               <p className="rail-card__sub">Weekend build sprint</p>
-              <Button href="#challenges" variant="ghost" size="sm" className="rail-card__btn">
+              <Button href="/explore/challenges" variant="ghost" size="sm" className="rail-card__btn">
                 Explore <ArrowRight size={14} />
               </Button>
             </div>

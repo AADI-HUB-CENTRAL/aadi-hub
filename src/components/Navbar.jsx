@@ -5,12 +5,10 @@ import Button from './ui/Button.jsx'
 import { Menu, X } from './ui/Icons.jsx'
 
 const LINKS = [
-  { label: 'Vision', href: '#vision' },
-  { label: 'Ecosystem', href: '#ecosystem' },
-  { label: 'Communities', href: '#community' },
-  { label: 'Challenges', href: '#challenges' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Opportunities', href: '#opportunities' },
+  { label: 'Identity', href: '#identity' },
+  { label: 'Passport', href: '#passport' },
+  { label: 'Apply', href: '#join', title: 'Early access and founding community' },
+  { label: 'FAQ', href: '#faq' },
 ]
 
 export default function Navbar() {
@@ -173,6 +171,7 @@ export default function Navbar() {
                 key={l.href}
                 className="nav__link"
                 href={l.href}
+                title={l.title}
                 aria-current={active === id ? 'true' : undefined}
                 onClick={(e) => go(e, id)}
               >
@@ -232,6 +231,7 @@ export default function Navbar() {
                   key={l.href}
                   className="drawer__link"
                   href={l.href}
+                  title={l.title}
                   aria-current={active === id ? 'true' : undefined}
                   onClick={(e) => go(e, id)}
                 >

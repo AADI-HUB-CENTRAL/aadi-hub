@@ -272,6 +272,20 @@
     grid-template-columns: 1fr 1fr;
   }
 
+  .footer__brand {
+    grid-row: auto;
+  }
+
+  .footer__map {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .footer__map-frame {
+    min-height: 200px;
+  }
+
   .proof-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -923,6 +937,19 @@
 
   .footer__grid {
     grid-template-columns: 1fr;
+  }
+
+  .footer__map {
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  .footer__map-info {
+    padding: 8px 6px 4px;
+  }
+
+  .footer__map-frame {
+    min-height: 180px;
   }
 
   .footer__bottom {
