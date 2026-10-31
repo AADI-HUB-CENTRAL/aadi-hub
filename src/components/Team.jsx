@@ -1,21 +1,22 @@
 import SectionHeader from './ui/SectionHeader.jsx'
 import Reveal from './ui/Reveal.jsx'
 import Button from './ui/Button.jsx'
-import { Plus } from './ui/Icons.jsx'
+import { Plus, Spark } from './ui/Icons.jsx'
 
 const LEADERS = [
   {
     num: '01',
     role: 'Founder',
-    name: 'Naga Neeraj',
+    name: 'Naga Neeraj Pasupuleti',
     founding: true,
-    img: '/founder.png',
-    alt: 'Portrait of Naga Neeraj, Founder of AADI HUB',
-    imgWidth: 941,
-    imgHeight: 1672,
-    label: 'Founding leadership',
-    desc: 'Building AADI HUB as a youth ecosystem where identity, community, collaboration and opportunity come together.',
-    chips: ['Data Science · Builder', 'AADI-000281'],
+    img: '/founder-card.webp',
+    alt: 'Portrait of Naga Neeraj Pasupuleti, Founder of AADI HUB',
+    imgWidth: 620,
+    imgHeight: 1102,
+    label: 'Founding Leadership',
+    desc: 'Building the ecosystem for the next generation to connect, build and grow.',
+    chips: ['Founder · AADI HUB', 'AADI-70001'],
+    variant: 'founder',
   },
   {
     num: '02',
@@ -26,9 +27,10 @@ const LEADERS = [
     alt: 'Portrait of Pavan Pragna, Co-Founder of AADI HUB',
     imgWidth: 900,
     imgHeight: 1600,
-    label: 'Founding leadership',
-    desc: 'Building AADI HUB alongside the founding team, with a focus on creating a stronger youth community where students can connect, collaborate, discover their strengths and grow together.',
-    chips: ['Community · Builder · AADI', 'Community', 'Collaboration', 'Youth Ecosystem'],
+    label: 'Founding Leadership',
+    desc: 'Building a stronger community where the next generation can connect, collaborate and grow.',
+    chips: ['Co-Founder · AADI HUB', 'AADI-70002'],
+    variant: 'cofounder',
   },
   {
     num: '03',
@@ -38,74 +40,130 @@ const LEADERS = [
     alt: 'Portrait of Reddy Ajay, CEO of AADI HUB',
     imgWidth: 1086,
     imgHeight: 1448,
-    desc: 'Leading vision, execution, growth and strategy for AADI HUB alongside the founding team.',
-    chips: ['Vision · Builder · AADI', 'Strategy', 'Execution', 'Growth'],
+    label: 'Execution & Leadership',
+    desc: 'Leading vision, strategy and execution as AADI HUB grows from concept into an ecosystem.',
+    chips: ['CEO · AADI HUB', 'AADI-70003'],
+    variant: 'ceo',
   },
   {
     num: '04',
     role: 'CTO',
-    name: 'Rv Ram charan',
+    name: 'Rv Ram Charan',
     img: '/cto.jpeg',
-    alt: 'Portrait of Rv Ram charan, CTO of AADI HUB',
+    alt: 'Portrait of Rv Ram Charan, CTO of AADI HUB',
     imgWidth: 1086,
     imgHeight: 1448,
-    desc: 'Building the technology, engineering and platform behind AADI HUB.',
-    chips: ['Technology · Engineering · AADI', 'Architecture', 'Innovation', 'Infrastructure'],
+    label: 'Technology & Engineering',
+    desc: 'Building the technology and engineering foundation that powers the AADI HUB ecosystem.',
+    chips: ['CTO · AADI HUB', 'AADI-70004'],
+    variant: 'cto',
   },
   {
     num: '05',
-    role: 'Director',
-    status: 'Now forming',
-    hiring: true,
-    desc: 'Leading operations, community and execution.',
-    aria: 'Director position — portrait placeholder',
+    role: 'Social Media and Event Lead',
+    name: 'Sandeep Vanise',
+    img: '/director.jpeg',
+    alt: 'Portrait of Sandeep Vanise, Social Media and Event Lead at AADI HUB',
+    imgWidth: 1086,
+    imgHeight: 1448,
+    label: 'Director',
+    desc: 'Leading social media, events and community storytelling that keep AADI HUB connected and visible.',
+    chips: ['Director · AADI HUB', 'AADI-70005'],
+    variant: 'director',
+    vip: true,
   },
 ]
 
-function LeaderCard({ lead }) {
+function CrewCard({ lead }) {
   const hasProfile = Boolean(lead.name)
   const hasImage = Boolean(lead.img)
+
   return (
-    <article className={`lead-card${lead.founding ? ' lead-card--founding' : ''}${lead.hiring ? ' lead-card--hiring' : ''}`}>
-      <div className="lead-card__photo">
-        {hasImage ? (
+    <article
+      className={`crew-card crew-card--${lead.variant}${lead.founding ? ' crew-card--founding' : ''}${lead.hiring ? ' crew-card--open' : ''}`}
+    >
+      {hasImage ? (
+        <>
+          <span
+            className="crew-card__blur"
+            style={{ backgroundImage: `url(${lead.img})` }}
+            aria-hidden="true"
+          />
           <img
-            className="lead-card__img"
+            className="crew-card__img"
             src={lead.img}
             alt={lead.alt}
             width={lead.imgWidth}
             height={lead.imgHeight}
             loading="lazy"
+            draggable="false"
           />
-        ) : (
-          <span className="lead-card__ph" role="img" aria-label={lead.aria}>
-            <Plus size={24} />
+          <span className="crew-card__scrim" aria-hidden="true" />
+        </>
+      ) : (
+        <span className="crew-card__open-bg" aria-hidden="true">
+          <i />
+        </span>
+      )}
+
+      {lead.vip && (
+        <span className="crew-card__vip">
+          <span>VIP</span>
+        </span>
+      )}
+
+      <div className="crew-card__top">
+        <span className="crew-card__role">
+          <span className="crew-card__num" aria-hidden="true">
+            {lead.num}
+          </span>
+          {lead.role}
+        </span>
+        {lead.founding && (
+          <span className="crew-card__flag">
+            <i aria-hidden="true" />
+            Founding
+          </span>
+        )}
+        {lead.hiring && (
+          <span className="crew-card__flag crew-card__flag--open">
+            <i aria-hidden="true" />
+            Open role
           </span>
         )}
       </div>
-      <p className="lead-card__role">
-        <span className="lead-card__num" aria-hidden="true">
-          {lead.num} —
-        </span>
-        {lead.role}
-      </p>
-      {lead.label && <p className="lead-card__label">{lead.label}</p>}
-      {hasProfile ? (
-        <>
-          <h4 className="lead-card__name">{lead.name}</h4>
-          <div className="lead-card__chips">
-            {lead.chips.map((chip, i) => (
-              <span className="lead-card__chip" key={chip}>
-                {i === 0 && <i aria-hidden="true" />}
-                {chip}
-              </span>
-            ))}
-          </div>
-        </>
-      ) : (
-        <p className="lead-card__status">{lead.status}</p>
-      )}
-      <p className="lead-card__desc">{lead.desc}</p>
+
+      <div className="crew-card__body">
+        {lead.label && <span className="crew-card__label">{lead.label}</span>}
+
+        {hasProfile ? (
+          <>
+            <h4 className="crew-card__name">{lead.name}</h4>
+            {lead.desc && <p className="crew-card__desc">{lead.desc}</p>}
+            {lead.chips?.length > 0 && (
+              <div className="crew-card__chips">
+                {lead.chips.map((chip, i) => (
+                  <span className="crew-card__chip" key={chip}>
+                    {i === 0 && <i aria-hidden="true" />}
+                    {chip}
+                  </span>
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <h4 className="crew-card__name">{lead.status}</h4>
+            <p className="crew-card__desc">{lead.desc}</p>
+            <span className="crew-card__open-icon" aria-hidden="true">
+              <Plus size={18} />
+            </span>
+            <Button href="#join" variant="secondary" size="sm" arrow>
+              Apply for Director
+            </Button>
+          </>
+        )}
+      </div>
     </article>
   )
 }
@@ -113,6 +171,8 @@ function LeaderCard({ lead }) {
 export default function Team() {
   return (
     <section className="sec sec--deep sec--line team" id="team">
+      <div className="team__aura" aria-hidden="true" />
+
       <div className="container">
         <SectionHeader
           kicker="The people behind AADI"
@@ -128,64 +188,39 @@ export default function Team() {
           lead="AADI HUB is being built by a team focused on creating a new digital ecosystem where young people can connect, build, contribute and grow."
         />
 
-        <div className="leadership">
-          <div className="leadership__tier-wrap">
-            <p className="leadership__tier">Founding vision</p>
-            <div className="leadership__row leadership__row--founding">
-              {LEADERS.slice(0, 2).map((l, i) => (
-                <Reveal key={l.role} delay={i * 110}>
-                  <LeaderCard lead={l} />
-                </Reveal>
-              ))}
-            </div>
+        <Reveal delay={80}>
+          <div className="crew__meta">
+            <span className="crew__meta-item">
+              <i aria-hidden="true" />
+              Founding team
+            </span>
+            <span className="crew__meta-item">5 seats · one direction</span>
+            <span className="crew__meta-item">
+              <Spark size={13} />
+              Building in public
+            </span>
           </div>
-
-          <Reveal delay={120}>
-            <div className="leadership__conn" aria-hidden="true">
-              <i />
-            </div>
-          </Reveal>
-
-          <div className="leadership__tier-wrap">
-            <p className="leadership__tier">Execution & leadership</p>
-            <div className="leadership__row leadership__row--core">
-              {LEADERS.slice(2).map((l, i) => (
-                <Reveal key={l.role} delay={i * 110}>
-                  <LeaderCard lead={l} />
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <Reveal delay={120}>
-          <div className="leadership__statement">
-            <p>
-              Different roles. <em>One direction.</em>
-            </p>
-            <p>
-              From vision and technology to execution and community, every part of AADI is being
-              built toward one goal — creating a place where the next generation can connect, build
-              and grow.
-            </p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={120}>
-          <div className="team__cta">
-            <h3>Want to help shape AADI?</h3>
-            <Button href="#join" variant="primary" size="lg" arrow>
-              Join AADI
-            </Button>
-          </div>
-        </Reveal>
-
-        <Reveal delay={100}>
-          <p className="team__bridge">
-            Now, meet the <b>identity</b> at the center of the ecosystem.
-          </p>
         </Reveal>
       </div>
+
+      <Reveal delay={120}>
+        <div className="crew-marquee" aria-label="AADI HUB founding team">
+          <div className="crew-marquee__track">
+            {[0, 1, 2].map((pass) => (
+              <div
+                className="crew-marquee__group"
+                key={pass}
+                aria-hidden={pass === 0 ? undefined : 'true'}
+                inert={pass === 0 ? undefined : true}
+              >
+                {LEADERS.map((lead) => (
+                  <CrewCard lead={lead} key={`${pass}-${lead.role}`} />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
     </section>
   )
 }

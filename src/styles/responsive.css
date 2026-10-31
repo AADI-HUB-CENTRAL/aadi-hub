@@ -1204,35 +1204,117 @@
   }
 }
 
-/* Founding Team — responsive */
-@media (max-width: 960px) {
-  .leadership__row--core {
-    grid-template-columns: repeat(2, 1fr);
+/* Founding Team - responsive */
+@media (max-width: 1024px) {
+  .crew-card {
+    flex-basis: 260px;
   }
 }
 
 @media (max-width: 640px) {
-  .leadership__row--founding,
-  .leadership__row--core {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 8px;
+  .team {
+    padding-block: 72px;
+  }
+
+  .team .sec-head {
+    margin-bottom: 28px;
+  }
+
+  .team .sec-lead {
+    margin-top: 16px;
+    font-size: 1rem;
+  }
+
+  .crew__meta {
+    gap: 8px 14px;
+    margin-top: 16px;
+    margin-bottom: 22px;
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+  }
+
+  .crew__meta-item + .crew__meta-item::before {
+    display: none;
+  }
+
+  .crew-marquee {
+    padding-block: 10px;
+  }
+
+  .crew-marquee::before,
+  .crew-marquee::after {
+    display: none;
+  }
+
+  .crew-marquee__track {
+    animation-duration: 30s;
+  }
+
+  .crew-marquee__group {
+    gap: 12px;
+    padding-inline: 0;
+  }
+
+  .crew-card {
+    flex: 0 0 min(260px, calc(100vw - 56px));
+    min-height: 330px;
+    padding: 14px;
+    gap: 16px;
+    border-radius: 18px;
+  }
+
+  .crew-card__top {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .crew-card__role {
+    padding: 7px 10px;
+    gap: 6px;
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+  }
+
+  .crew-card--director .crew-card__role {
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+  }
+
+  .crew-card__flag {
+    padding: 6px 9px;
+    font-size: 0.52rem;
+    letter-spacing: 0.12em;
+  }
+
+  .crew-card__name {
+    font-size: 1.2rem;
+  }
+
+  .crew-card--founder .crew-card__name,
+  .crew-card--cofounder .crew-card__name {
+    font-size: 1.32rem;
+  }
+
+  .crew-card__desc {
     max-width: none;
-    margin-inline: 0;
-    padding-inline: clamp(16px, 4vw, 24px);
+    font-size: 0.76rem;
+    line-height: 1.5;
   }
 
-  .leadership__row--founding > *,
-  .leadership__row--core > * {
-    flex: 0 0 clamp(240px, 70vw, 300px);
-    scroll-snap-align: start;
-    height: auto;
+  .crew-card__chips {
+    margin-top: 10px;
+    gap: 5px;
   }
 
-  .leadership__conn {
-    margin-block: clamp(14px, 3vw, 20px);
+  .crew-card__chip {
+    padding: 4px 7px;
+    font-size: 0.48rem;
+    letter-spacing: 0.05em;
+  }
+
+  .crew-card--cofounder .crew-card__chip {
+    padding: 4px 6px;
+    font-size: 0.46rem;
   }
 
   .join-involvement__card {
@@ -1257,81 +1339,28 @@
   }
 }
 
-/* Social media partners — responsive */
-@media (max-width: 960px) {
-  .partners__head {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .partners__lead {
-    border-left: none;
-    padding-left: 0;
-    max-width: 620px;
-  }
-
-  .partners__card {
-    grid-template-columns: 1fr;
-  }
-
-  .partners__stage {
-    border-right: none;
-    border-bottom: 1px solid var(--border-dark);
-  }
-
-  .partners__body {
-    padding-block: clamp(30px, 5vw, 44px);
-  }
-}
-
-@media (max-width: 820px) {
-  .partners__perks {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* Projects & partners - responsive */
 @media (max-width: 620px) {
-  .partners__stage {
-    gap: 6px;
-    padding: 38px 16px;
+  .pp-marquee__group {
+    gap: 28px;
   }
 
-  .partners__logo {
-    width: 72px;
+  .pp-item {
+    gap: 12px;
   }
 
-  .partners__orbit {
-    inset: -7px;
+  .pp-item__logo {
+    width: 42px;
+    height: 42px;
   }
 
-  .partners__beam-label {
-    display: none;
+  .pp-item--cjpx .pp-item__logo {
+    width: 68px;
   }
 
-  .partners__node-sub {
-    font-size: 0.6rem;
+  .pp-item__type {
+    font-size: 0.56rem;
     letter-spacing: 0.1em;
-  }
-
-  .partners__node-name {
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-  }
-
-  .partners__ticker-item {
-    padding: 11px 16px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .partners__card::before,
-  .partners__x,
-  .partners__logo,
-  .partners__orbit,
-  .partners__beam-dot,
-  .partners__badge-dot,
-  .partners__ticker-track {
-    animation: none;
   }
 }
 
