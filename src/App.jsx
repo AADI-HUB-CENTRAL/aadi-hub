@@ -3,6 +3,7 @@ import MobileExperiencePrompt from './components/MobileExperiencePrompt.jsx'
 import Navbar from './components/Navbar.jsx'
 import Hero from './components/Hero.jsx'
 import TrustStrip from './components/TrustStrip.jsx'
+import SocialPartners from './components/SocialPartners.jsx'
 import Problem from './components/Problem.jsx'
 import Differentiation from './components/Differentiation.jsx'
 import Vision from './components/Vision.jsx'
@@ -38,6 +39,7 @@ function LandingPage() {
       <main>
         <Hero />
         <TrustStrip />
+        <SocialPartners />
         <Problem />
         <Differentiation />
         <Vision />
