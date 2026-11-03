@@ -1302,11 +1302,6 @@
     letter-spacing: 0.12em;
   }
 
-  .crew-card--director .crew-card__role {
-    font-size: 0.52rem;
-    letter-spacing: 0.08em;
-  }
-
   .crew-card__flag {
     padding: 6px 9px;
     font-size: 0.52rem;

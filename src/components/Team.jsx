@@ -58,20 +58,6 @@ const LEADERS = [
     chips: ['CTO · AADI HUB', 'AADI-70004'],
     variant: 'cto',
   },
-  {
-    num: '05',
-    role: 'Social Media and Event Lead',
-    name: 'Sandeep Vanise',
-    img: '/director.jpeg',
-    alt: 'Portrait of Sandeep Vanise, Social Media and Event Lead at AADI HUB',
-    imgWidth: 1086,
-    imgHeight: 1448,
-    label: 'Director',
-    desc: 'Leading social media, events and community storytelling that keep AADI HUB connected and visible.',
-    chips: ['Director · AADI HUB', 'AADI-70005'],
-    variant: 'director',
-    vip: true,
-  },
 ]
 
 function CrewCard({ lead }) {
@@ -103,12 +89,6 @@ function CrewCard({ lead }) {
       ) : (
         <span className="crew-card__open-bg" aria-hidden="true">
           <i />
-        </span>
-      )}
-
-      {lead.vip && (
-        <span className="crew-card__vip">
-          <span>VIP</span>
         </span>
       )}
 
@@ -194,7 +174,7 @@ export default function Team() {
               <i aria-hidden="true" />
               Founding team
             </span>
-            <span className="crew__meta-item">5 seats · one direction</span>
+            <span className="crew__meta-item">4 seats · one direction</span>
             <span className="crew__meta-item">
               <Spark size={13} />
               Building in public

@@ -9831,8 +9831,7 @@ section#journey.journey {
 }
 
 .crew-card--ceo .crew-card__img,
-.crew-card--cto .crew-card__img,
-.crew-card--director .crew-card__img {
+.crew-card--cto .crew-card__img {
   object-position: center 16%;
 }
 
@@ -9849,37 +9848,6 @@ section#journey.journey {
       rgba(4, 6, 11, 0) 74%
     ),
     linear-gradient(120deg, rgba(4, 6, 11, 0.35), transparent 55%);
-}
-
-/* VIP corner ribbon */
-.crew-card__vip {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 3;
-  width: 76px;
-  height: 76px;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.crew-card__vip > span {
-  position: absolute;
-  top: 17px;
-  right: -30px;
-  width: 112px;
-  padding: 4px 0;
-  transform: rotate(45deg);
-  background: linear-gradient(135deg, var(--kiwi-300), var(--kiwi-600));
-  color: var(--night-950);
-  font-family: var(--font-display);
-  font-size: 0.52rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  line-height: 1;
-  text-align: center;
-  text-transform: uppercase;
-  box-shadow: 0 8px 18px rgba(4, 6, 11, 0.35);
 }
 
 /* Top row */
@@ -9912,14 +9880,6 @@ section#journey.journey {
 .crew-card__num {
   color: var(--kiwi-400);
   font-variant-numeric: tabular-nums;
-}
-
-.crew-card--director .crew-card__role {
-  max-width: calc(100% - 56px);
-  font-size: 0.55rem;
-  letter-spacing: 0.1em;
-  line-height: 1.35;
-  white-space: normal;
 }
 
 .crew-card__flag {
