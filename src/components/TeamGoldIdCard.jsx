@@ -1,8 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
 import { BrandSymbol } from './Logo.jsx'
-
-const MAX_TILT = 3.5
 
 function DiamondIcon({ size = 13, className }) {
   return (
@@ -26,51 +24,14 @@ function SparkleIcon({ size = 16 }) {
 }
 
 export default function TeamGoldIdCard({ member }) {
-  const wrapRef = useRef(null)
   const [flipped, setFlipped] = useState(false)
   const isFounding = Boolean(member.founding)
   const profileUrl = `${window.location.origin}/team/${member.slug}`
 
-  useEffect(() => {
-    const el = wrapRef.current
-    if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    if (window.matchMedia('(pointer: coarse)').matches) return
-
-    let raf = 0
-    const onMove = (e) => {
-      const r = el.getBoundingClientRect()
-      const px = (e.clientX - r.left) / r.width
-      const py = (e.clientY - r.top) / r.height
-      cancelAnimationFrame(raf)
-      raf = requestAnimationFrame(() => {
-        el.style.setProperty('--rx', `${((0.5 - py) * MAX_TILT * 2).toFixed(2)}deg`)
-        el.style.setProperty('--ry', `${((px - 0.5) * MAX_TILT * 2).toFixed(2)}deg`)
-      })
-    }
-    const onLeave = () => {
-      cancelAnimationFrame(raf)
-      raf = requestAnimationFrame(() => {
-        el.style.setProperty('--rx', '0deg')
-        el.style.setProperty('--ry', '0deg')
-      })
-    }
-    el.addEventListener('pointermove', onMove)
-    el.addEventListener('pointerleave', onLeave)
-    return () => {
-      el.removeEventListener('pointermove', onMove)
-      el.removeEventListener('pointerleave', onLeave)
-      cancelAnimationFrame(raf)
-    }
-  }, [])
-
   const faceClass = `goldcard goldcard--face${isFounding ? ' goldcard--diamond' : ''}`
 
   return (
-    <div
-      className={`goldcard-flip${isFounding ? ' goldcard-flip--diamond' : ''}`}
-      ref={wrapRef}
-    >
+    <div className={`goldcard-flip${isFounding ? ' goldcard-flip--diamond' : ''}`}>
       <div
         className={`goldcard-flip__inner${flipped ? ' is-flipped' : ''}`}
         onClick={() => setFlipped((f) => !f)}
