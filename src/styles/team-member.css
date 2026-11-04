@@ -1,0 +1,752 @@
+.member-page {
+  position: relative;
+  overflow: hidden;
+}
+
+.member-page__aura {
+  position: absolute;
+  top: -6%;
+  left: 50%;
+  width: clamp(420px, 60vw, 920px);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(212, 175, 55, 0.12), transparent 62%),
+    radial-gradient(circle, rgba(181, 232, 74, 0.06), transparent 70%);
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+.member-page__back {
+  position: relative;
+  z-index: 1;
+  margin-bottom: clamp(26px, 3.4vw, 44px);
+}
+
+.member-page__back a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint-on-dark);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.member-page__back a svg {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease;
+}
+
+.member-page__back a:hover {
+  color: var(--kiwi-300);
+}
+
+.member-page__back a:hover svg {
+  transform: rotate(180deg) translateX(2px);
+}
+
+/* ---- Hero ---- */
+.member-page__hero {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.member-page__portrait {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: clamp(20px, 2.4vw, 30px);
+  border: 1px solid var(--border-dark-strong);
+  background: var(--night-850);
+  box-shadow: var(--shadow-card);
+}
+
+.member-page__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 14%;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.member-page__portrait-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(4, 6, 11, 0.9) 0%,
+    rgba(4, 6, 11, 0.4) 32%,
+    transparent 60%
+  );
+}
+
+.member-page__portrait-tag {
+  position: absolute;
+  left: clamp(16px, 2vw, 22px);
+  bottom: clamp(16px, 2vw, 22px);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  background: rgba(7, 11, 20, 0.62);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f6e3a4;
+}
+
+.member-page__portrait-tag i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d4af37;
+  animation: aadi-pulse 2.4s ease-out infinite;
+}
+
+.member-page__details {
+  min-width: 0;
+}
+
+.member-page__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ebcb7a;
+}
+
+.member-page__eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+}
+
+.member-page__name {
+  margin: 16px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--text-on-dark);
+}
+
+.member-page__role {
+  margin: 12px 0 0;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-on-dark);
+}
+
+.member-page__bio {
+  margin: 22px 0 0;
+  max-width: 54ch;
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  line-height: 1.7;
+  color: rgba(237, 241, 247, 0.74);
+}
+
+.member-page__focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.member-page__focus span {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(237, 241, 247, 0.14);
+  background: rgba(7, 11, 20, 0.55);
+  font-size: 0.76rem;
+  color: var(--night-200);
+}
+
+/* ---- Premium ID section ---- */
+.member-page__id {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 64px);
+  margin-top: clamp(48px, 6vw, 88px);
+  padding-top: clamp(36px, 4vw, 52px);
+  border-top: 1px solid rgba(237, 241, 247, 0.1);
+}
+
+.member-page__id-head {
+  max-width: 360px;
+}
+
+.member-page__id-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--faint-on-dark);
+}
+
+.member-page__id-kicker::before {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+}
+
+.member-page__id-title {
+  margin: 14px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+}
+
+.member-page__id-note {
+  margin: 12px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted-on-dark);
+}
+
+/* ============================================================
+   GOLD / DIAMOND COATED AADI ID CARD (flip)
+   ============================================================ */
+.goldcard-flip {
+  --gold-100: #fff6d6;
+  --gold-200: #f6e3a4;
+  --gold-300: #ebcb7a;
+  --gold-400: #d4af37;
+  --gold-500: #b8912e;
+  --rx: 0deg;
+  --ry: 0deg;
+  width: min(520px, 100%);
+  margin-inline: auto;
+  transform: perspective(1200px) rotateX(var(--rx)) rotateY(var(--ry)) translateZ(0);
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease-out);
+  will-change: transform;
+}
+
+.goldcard-flip__inner {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.8s var(--ease-out);
+}
+
+.goldcard-flip__inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.goldcard-flip__inner:focus-visible {
+  outline: 2px solid var(--gold-400, #d4af37);
+  outline-offset: 5px;
+  border-radius: 26px;
+}
+
+.goldcard-flip__hint {
+  margin: 14px 0 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(246, 227, 164, 0.45);
+  transition: color 0.3s ease;
+}
+
+.goldcard-flip:hover .goldcard-flip__hint {
+  color: rgba(246, 227, 164, 0.8);
+}
+
+.goldcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 344px;
+  padding: clamp(24px, 2.8vw, 32px);
+  border-radius: clamp(20px, 2.2vw, 26px);
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  background:
+    radial-gradient(130% 100% at 88% -10%, rgba(212, 175, 55, 0.28), transparent 52%),
+    radial-gradient(100% 80% at 0% 110%, rgba(181, 145, 46, 0.18), transparent 55%),
+    linear-gradient(155deg, #1b150a 0%, #0e0b06 52%, #191206 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 246, 214, 0.18) inset,
+    0 0 0 1px rgba(212, 175, 55, 0.12),
+    0 34px 80px -34px rgba(212, 175, 55, 0.45),
+    0 26px 60px -30px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  isolation: isolate;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.goldcard--back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+
+.goldcard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(255, 246, 214, 0.1) 46%,
+      rgba(255, 246, 214, 0.24) 50%,
+      rgba(255, 246, 214, 0.1) 54%,
+      transparent 70%
+    );
+  background-size: 260% 260%;
+  animation: goldcard-sheen 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.goldcard::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  z-index: 0;
+  border-radius: calc(clamp(20px, 2.2vw, 26px) - 6px);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  pointer-events: none;
+}
+
+.goldcard__shine {
+  position: absolute;
+  right: -30%;
+  bottom: -55%;
+  z-index: 0;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(235, 203, 122, 0.22), transparent 65%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.goldcard__diamond-mark {
+  position: absolute;
+  right: -34px;
+  bottom: -34px;
+  z-index: 0;
+  width: 190px;
+  height: 190px;
+  color: var(--gold-400, #d4af37);
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.goldcard--diamond {
+  border-color: rgba(255, 240, 190, 0.7);
+  background:
+    radial-gradient(130% 100% at 88% -10%, rgba(255, 235, 160, 0.36), transparent 52%),
+    radial-gradient(90% 80% at 0% 110%, rgba(212, 175, 55, 0.26), transparent 55%),
+    linear-gradient(155deg, #241a08 0%, #0f0b05 50%, #211606 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 250, 226, 0.28) inset,
+    0 0 0 1px rgba(246, 227, 164, 0.2),
+    0 0 40px -8px rgba(212, 175, 55, 0.5),
+    0 38px 90px -34px rgba(212, 175, 55, 0.6),
+    0 26px 60px -30px rgba(0, 0, 0, 0.9);
+}
+
+.goldcard--diamond::after {
+  border-color: rgba(255, 240, 190, 0.32);
+  box-shadow: 0 0 24px -10px rgba(255, 240, 190, 0.5) inset;
+}
+
+.goldcard--diamond .goldcard__diamond-mark {
+  opacity: 0.16;
+}
+
+.goldcard__sparkle {
+  position: absolute;
+  z-index: 2;
+  color: var(--gold-200, #f6e3a4);
+  filter: drop-shadow(0 0 6px rgba(246, 227, 164, 0.75));
+  animation: goldcard-twinkle 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.goldcard__sparkle--1 {
+  top: 21%;
+  right: 13%;
+}
+
+.goldcard__sparkle--2 {
+  top: 57%;
+  left: 7%;
+  animation-delay: 0.7s;
+}
+
+.goldcard__sparkle--3 {
+  right: 27%;
+  bottom: 27%;
+  animation-delay: 1.2s;
+}
+
+.goldcard__brand {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.goldcard__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.goldcard__logo .brand-symbol {
+  color: var(--gold-300, #ebcb7a);
+}
+
+.goldcard__logo img {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(88%) sepia(28%) saturate(640%) hue-rotate(2deg)
+    brightness(1.05);
+}
+
+.goldcard__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.24), rgba(212, 175, 55, 0.06));
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-200, #f6e3a4);
+}
+
+.goldcard__badge i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold-300, #ebcb7a);
+  box-shadow: 0 0 10px rgba(235, 203, 122, 0.8);
+}
+
+.goldcard__badge svg {
+  color: var(--gold-200, #f6e3a4);
+}
+
+.goldcard__identity {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.goldcard__photo {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(150deg, var(--gold-100, #fff6d6), var(--gold-400, #d4af37) 55%, var(--gold-500, #b8912e));
+  box-shadow: 0 0 22px -6px rgba(212, 175, 55, 0.6);
+}
+
+.goldcard__photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 16%;
+  display: block;
+}
+
+.goldcard__identity-copy {
+  min-width: 0;
+}
+
+.goldcard__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--gold-100, #fff6d6);
+  text-shadow: 0 1px 18px rgba(212, 175, 55, 0.25);
+}
+
+.goldcard__role {
+  margin: 7px 0 0;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-300, #ebcb7a);
+}
+
+/* ---- Celebration ribbon ---- */
+.goldcard__ribbon {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 11px;
+  padding: 6px 16px;
+  font-family: var(--font-display);
+  font-size: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1c1305;
+  background: linear-gradient(135deg, #fff0b8 0%, #d4af37 42%, #a97e24 66%, #f7e8b5 100%);
+  background-size: 200% 100%;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 7px) 50%, 100% 100%, 0 100%, 7px 50%);
+  box-shadow: 0 5px 16px -5px rgba(212, 175, 55, 0.7);
+  animation: goldcard-ribbon 5s ease-in-out infinite;
+}
+
+.goldcard__ribbon svg {
+  color: #2a1d06;
+}
+
+.goldcard__foot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: auto;
+}
+
+.goldcard__idline {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 14px;
+  border-left: 2px solid var(--gold-400, #d4af37);
+}
+
+.goldcard__idlabel {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(246, 227, 164, 0.6);
+}
+
+.goldcard__idnum {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--gold-100, #fff6d6);
+}
+
+.goldcard__qr {
+  flex-shrink: 0;
+  padding: 9px;
+  border-radius: 12px;
+  background: var(--gold-200, #f6e3a4);
+  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.7);
+  line-height: 0;
+}
+
+.goldcard__strip {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(212, 175, 55, 0.24);
+  font-size: 0.5rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(246, 227, 164, 0.5);
+}
+
+/* ---- Back face ---- */
+.goldcard__back-fields {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.goldcard__back-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.goldcard__back-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(246, 227, 164, 0.45);
+}
+
+.goldcard__back-value {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 246, 214, 0.9);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.goldcard__back-value--gold {
+  color: var(--gold-200, #f6e3a4);
+}
+
+@keyframes goldcard-sheen {
+  0%,
+  100% {
+    background-position: 130% 0%;
+  }
+  50% {
+    background-position: -30% 100%;
+  }
+}
+
+@keyframes goldcard-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12) rotate(12deg);
+  }
+}
+
+@keyframes goldcard-ribbon {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .member-page__hero {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(24px, 5vw, 36px);
+  }
+
+  .member-page__portrait {
+    aspect-ratio: 4 / 4.6;
+    max-width: 420px;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .member-page__id {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .member-page__id-head {
+    max-width: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .goldcard {
+    gap: 14px;
+    min-height: 0;
+  }
+
+  .goldcard--back {
+    min-height: 0;
+  }
+
+  .goldcard__photo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .goldcard__qr {
+    padding: 7px;
+  }
+
+  .goldcard__qr svg {
+    width: 58px;
+    height: 58px;
+  }
+
+  .goldcard__back-fields {
+    gap: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .goldcard::before,
+  .goldcard__sparkle,
+  .goldcard__ribbon {
+    animation: none;
+  }
+
+  .goldcard-flip__inner {
+    transition: none;
+  }
+}

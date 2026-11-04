@@ -31,6 +31,8 @@ import ShowcasePage from './components/ShowcasePage.jsx'
 import Login from './components/Login.jsx'
 import Register from './components/Register.jsx'
 import FormPage from './components/FormPage.jsx'
+import TeamPage from './components/TeamPage.jsx'
+import TeamMemberPage from './components/TeamMemberPage.jsx'
 
 function LandingPage() {
   return (
@@ -68,6 +70,8 @@ export default function App() {
       </a>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/team" element={<ShowcasePage><TeamPage /></ShowcasePage>} />
+        <Route path="/team/:slug" element={<ShowcasePage><TeamMemberPage /></ShowcasePage>} />
         <Route path="/form" element={<FormPage />} />
 
         <Route path="/explore" element={<Navigate to="/" replace />} />

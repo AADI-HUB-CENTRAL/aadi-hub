@@ -136,6 +136,7 @@ export default function Navbar() {
             />
           </Link>
           <div className="nav__right">
+            <Link className="nav__login" to="/team">Team</Link>
             <Link className="nav__login" to="/login">Login</Link>
             <Button href="/form" variant="primary" size="sm" className="nav__register" arrow>Join AADI</Button>
           </div>
@@ -164,6 +165,7 @@ export default function Navbar() {
         </a>
 
         <nav className="nav__links" aria-label="Primary">
+          <Link className="nav__link" to="/team">Team</Link>
           {LINKS.map((l) => {
             const id = l.href.slice(1)
             return (
@@ -224,6 +226,7 @@ export default function Navbar() {
             </button>
           </div>
           <nav className="drawer__links" aria-label="Mobile">
+            <Link className="drawer__link" to="/team" onClick={close}>Team</Link>
             {LINKS.map((l) => {
               const id = l.href.slice(1)
               return (
