@@ -139,6 +139,10 @@ export default function TeamGoldIdCard({ member }) {
               <span className="goldcard__back-value">{member.role} · AADI HUB</span>
             </div>
             <div className="goldcard__back-field">
+              <span className="goldcard__back-label">Department</span>
+              <span className="goldcard__back-value">{member.department}</span>
+            </div>
+            <div className="goldcard__back-field">
               <span className="goldcard__back-label">Focus</span>
               <span className="goldcard__back-value">{member.focus.join(' · ')}</span>
             </div>

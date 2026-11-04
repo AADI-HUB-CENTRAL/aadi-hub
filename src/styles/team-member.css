@@ -164,6 +164,31 @@
   color: var(--muted-on-dark);
 }
 
+.member-page__dept {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+  padding: 6px 13px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  background: rgba(212, 175, 55, 0.08);
+  font-family: var(--font-display);
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ebcb7a;
+}
+
+.member-page__dept::before {
+  content: "";
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
 .member-page__bio {
   margin: 22px 0 0;
   max-width: 54ch;

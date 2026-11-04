@@ -14,6 +14,7 @@ const LEADERS = [
     imgWidth: 620,
     imgHeight: 1102,
     label: 'Founding Leadership',
+    department: 'Department of Founding',
     desc: 'Building the ecosystem for the next generation to connect, build and grow.',
     chips: ['Founder · AADI HUB', 'AADI-70001'],
     variant: 'founder',
@@ -28,6 +29,7 @@ const LEADERS = [
     imgWidth: 900,
     imgHeight: 1600,
     label: 'Founding Leadership',
+    department: 'Department of Founding',
     desc: 'Building a stronger community where the next generation can connect, collaborate and grow.',
     chips: ['Co-Founder · AADI HUB', 'AADI-70002'],
     variant: 'cofounder',
@@ -41,6 +43,7 @@ const LEADERS = [
     imgWidth: 1086,
     imgHeight: 1448,
     label: 'Execution & Leadership',
+    department: 'Department of Founding',
     desc: 'Leading vision, strategy and execution as AADI HUB grows from concept into an ecosystem.',
     chips: ['CEO · AADI HUB', 'AADI-70003'],
     variant: 'ceo',
@@ -54,6 +57,7 @@ const LEADERS = [
     imgWidth: 1086,
     imgHeight: 1448,
     label: 'Technology & Engineering',
+    department: 'Department of Founding',
     desc: 'Building the technology and engineering foundation that powers the AADI HUB ecosystem.',
     chips: ['CTO · AADI HUB', 'AADI-70004'],
     variant: 'cto',
@@ -119,6 +123,9 @@ function CrewCard({ lead }) {
         {hasProfile ? (
           <>
             <h4 className="crew-card__name">{lead.name}</h4>
+            {lead.department && (
+              <span className="crew-card__dept">{lead.department}</span>
+            )}
             {lead.desc && <p className="crew-card__desc">{lead.desc}</p>}
             {lead.chips?.length > 0 && (
               <div className="crew-card__chips">

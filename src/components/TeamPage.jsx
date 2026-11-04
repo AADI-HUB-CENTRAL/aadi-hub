@@ -42,6 +42,9 @@ function TeamCard({ member }) {
 
       <div className="crew-card__body">
         <h4 className="crew-card__name">{member.name}</h4>
+        {member.department && (
+          <span className="crew-card__dept">{member.department}</span>
+        )}
         <div className="crew-card__chips">
           {member.chips.map((chip, i) => (
             <span className="crew-card__chip" key={chip}>

@@ -9953,6 +9953,27 @@ section#journey.journey {
   letter-spacing: -0.02em;
 }
 
+.crew-card__dept {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kiwi-300);
+}
+
+.crew-card__dept::before {
+  content: "";
+  width: 14px;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
 .crew-card--founder .crew-card__name,
 .crew-card--cofounder .crew-card__name {
   font-size: clamp(1.25rem, 1.8vw, 1.55rem);

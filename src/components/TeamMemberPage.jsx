@@ -46,6 +46,9 @@ export default function TeamMemberPage() {
               <span className="member-page__eyebrow">{member.label}</span>
               <h1 className="member-page__name">{member.name}</h1>
               <p className="member-page__role">{member.role} · AADI HUB</p>
+              {member.department && (
+                <span className="member-page__dept">{member.department}</span>
+              )}
               <p className="member-page__bio">{member.bio}</p>
 
               <div className="member-page__focus">
