@@ -1,15 +1,32 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
+import { AuthProvider } from './context/AuthContext.jsx'
+import { ToastProvider } from './context/ToastContext.jsx'
+import { ThemeProvider } from './context/ThemeContext.jsx'
 import './styles/tokens.css'
+import './product/styles/product.css'
 import './styles/base.css'
 import './styles/sections.css'
 import './styles/responsive.css'
 import './styles/mobile-prompt.css'
 import './styles/auth.css'
+import './styles/identity.css'
+import './styles/dashboard.css'
+import './styles/profile.css'
+import './product/styles/theme-light.css'
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <ErrorBoundary>
+    <BrowserRouter>
+      <AuthProvider>
+        <ThemeProvider>
+          <ToastProvider>
+            <App />
+          </ToastProvider>
+        </ThemeProvider>
+      </AuthProvider>
+    </BrowserRouter>
+  </ErrorBoundary>
 )

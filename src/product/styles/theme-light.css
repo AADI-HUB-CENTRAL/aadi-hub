@@ -1,0 +1,163 @@
+/* ===========================================================================
+   Light view mode — scoped to the authenticated app shell only.
+   The shell receives data-theme="light" from ThemeContext, so login,
+   onboarding and the public showcase keep the original dark AADI HUB look.
+   =========================================================================== */
+
+body[data-app-theme='light'] {
+  background: #F4F7EF;
+  color-scheme: light;
+}
+
+.shell[data-theme='light'] {
+  color-scheme: light;
+
+  /* Invert the night scale into calm paper surfaces. */
+  --night-950: #FFFFFF;
+  --night-900: #F4F7EF;
+  --night-850: #FFFFFF;
+  --night-800: #F0F3EA;
+  --night-700: #E6EBDF;
+  --night-600: #DCE3D4;
+  --night-500: #C4CDBA;
+  --night-300: #4F5A70;
+  --night-200: #333E53;
+  --night-100: #162034;
+
+  --text-on-dark: #0B111E;
+  --muted-on-dark: #55617A;
+  --faint-on-dark: #78849A;
+  --border-dark: rgba(11, 17, 30, 0.1);
+  --border-dark-strong: rgba(11, 17, 30, 0.17);
+
+  /* Deeper kiwi greens keep the accent readable on light surfaces. */
+  --kiwi-200: #3F6B0C;
+  --kiwi-300: #466F10;
+  --kiwi-400: #4F7A12;
+  --kiwi-500: #5F8A16;
+  --kiwi-600: #6E9E1C;
+  --kiwi-glow: rgba(95, 138, 22, 0.28);
+  --kiwi-glow-soft: rgba(181, 232, 74, 0.2);
+
+  --shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 18px 44px -24px rgba(11, 17, 30, 0.16);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 24px 54px -30px rgba(11, 17, 30, 0.2);
+  --shadow-lift: 0 1px 0 rgba(255, 255, 255, 0.95) inset, 0 34px 70px -30px rgba(11, 17, 30, 0.24);
+
+  background: var(--night-900);
+  color: var(--text-on-dark);
+}
+
+/* ----------------------------- shell chrome ------------------------------- */
+
+.shell[data-theme='light'] .shell__topbar {
+  background: rgba(244, 247, 239, 0.82);
+}
+
+.shell[data-theme='light'] .shell__mobilenav {
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.shell[data-theme='light'] .shell__side-foot {
+  border-top-color: rgba(11, 17, 30, 0.08);
+}
+
+/* Kiwi-filled controls keep a white glyph in light mode. */
+.shell[data-theme='light'] .p-btn--primary,
+.shell[data-theme='light'] .p-steps__item--now .p-steps__dot,
+.shell[data-theme='light'] .lp-hero__avatar-btn {
+  color: #FFFFFF;
+}
+
+/* --------------------------- status / feedback ---------------------------- */
+
+.shell[data-theme='light'] .p-inline-error,
+.shell[data-theme='light'] .join-error,
+.shell[data-theme='light'] .join-form__error,
+.shell[data-theme='light'] .p-field__error {
+  color: #B42318;
+}
+
+.shell[data-theme='light'] .p-badge--warn,
+.shell[data-theme='light'] .opp-deadline.is-soon,
+.shell[data-theme='light'] .app-state--warning .app-state__eyebrow {
+  color: #8A5A00;
+}
+
+.shell[data-theme='light'] .p-badge--info {
+  color: #1F5FA8;
+}
+
+.shell[data-theme='light'] .idpage__notice {
+  color: #8A5A00;
+  border-color: rgba(138, 90, 0, 0.24);
+  background: rgba(255, 196, 84, 0.16);
+}
+
+.shell[data-theme='light'] .opp-deadline.is-past,
+.shell[data-theme='light'] .acct__item--danger,
+.shell[data-theme='light'] .app-state--danger .app-state__eyebrow {
+  color: #B42318;
+}
+
+/* ------------------------------ skeletons --------------------------------- */
+
+.shell[data-theme='light'] .ov-stat__value--loading,
+.shell[data-theme='light'] .ov-idcard__skeleton,
+.shell[data-theme='light'] .pj-skeleton__line {
+  background: linear-gradient(
+    90deg,
+    rgba(11, 17, 30, 0.06) 0%,
+    rgba(11, 17, 30, 0.13) 50%,
+    rgba(11, 17, 30, 0.06) 100%
+  );
+}
+
+/* ------------------------------ soft surfaces ----------------------------- */
+
+.shell[data-theme='light'] .ov-status,
+.shell[data-theme='light'] .pj-card__tag,
+.shell[data-theme='light'] .pj-card__visibility {
+  background: rgba(11, 17, 30, 0.04);
+}
+
+.shell[data-theme='light'] .ov-opp__kind {
+  background: rgba(11, 17, 30, 0.05);
+}
+
+.shell[data-theme='light'] .ov-idcard__meter {
+  background: rgba(11, 17, 30, 0.12);
+}
+
+.shell[data-theme='light'] .ov-feed::before {
+  background: linear-gradient(180deg, var(--border-dark), rgba(11, 17, 30, 0.03));
+}
+
+.shell[data-theme='light'] .ov-feed-empty svg {
+  color: var(--faint-on-dark);
+}
+
+/* ------------------------- keep the AADI ID dark --------------------------
+   The physical card is a brand artefact. Re-declare the night palette on it
+   so it stays a dark card even when the workspace is light.
+   ------------------------------------------------------------------------- */
+
+.shell[data-theme='light'] .idpage__card .idcard {
+  --night-950: #04060B;
+  --night-900: #070B14;
+  --night-850: #0A0F1C;
+  --night-800: #0D1322;
+  --night-700: #131B2E;
+  --night-600: #1B2539;
+  --night-500: #26334A;
+  --text-on-dark: #EDF1F7;
+  --muted-on-dark: rgba(237, 241, 247, 0.64);
+  --faint-on-dark: rgba(237, 241, 247, 0.4);
+  --border-dark: rgba(237, 241, 247, 0.1);
+  --border-dark-strong: rgba(237, 241, 247, 0.18);
+  --kiwi-300: #D0F376;
+  --kiwi-400: #C2EE5C;
+  --kiwi-500: #B5E84A;
+  --kiwi-glow-soft: rgba(181, 232, 74, 0.12);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 28px 60px -28px rgba(4, 6, 11, 0.7);
+  --shadow-lift: 0 2px 0 rgba(255, 255, 255, 0.06) inset, 0 34px 70px -26px rgba(4, 6, 11, 0.8);
+}

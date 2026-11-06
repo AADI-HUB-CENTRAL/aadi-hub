@@ -1,0 +1,1048 @@
+/* ===========================================================================
+   Overview - dashboard layout.
+   Imported by OverviewPage only.
+
+   Hierarchy, top to bottom:
+     welcome  ->  metrics  ->  your projects  ->  opportunities  ->  activity
+              ->  AADI identity preview
+
+   Surfaces stay restrained: one night surface per block, hairline borders,
+   kiwi used only as an accent (icon plates, the identity marker, match tags).
+   =========================================================================== */
+
+.ov {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ------------------------------- welcome ---------------------------------- */
+
+.ov-welcome {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  background:
+    radial-gradient(ellipse 62% 130% at 100% 0%, rgba(181, 232, 74, 0.055), transparent),
+    var(--night-850);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius);
+}
+
+.ov-welcome__body {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding: 26px;
+}
+
+.ov-welcome__title {
+  font-size: clamp(25px, 3.4vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--text-on-dark);
+}
+
+.ov-welcome__name { color: var(--kiwi-500); }
+
+.ov-welcome__tagline {
+  margin-top: 8px;
+  font-size: 15px;
+  color: var(--muted-on-dark);
+}
+
+.ov-welcome__meta { margin-top: 12px; }
+
+/* The visual is not a card: it is the right half of the welcome surface,
+   bleeding to the top, right and bottom edges, then dissolving leftward into
+   the same navy the greeting sits on. The mask is the only seam. */
+
+.ov-welcome__visual {
+  position: relative;
+  min-height: 172px;
+  pointer-events: none;
+  opacity: 0.92;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.24) 22%,
+    rgba(0, 0, 0, 0.55) 42%,
+    rgba(0, 0, 0, 0.8) 62%,
+    rgba(0, 0, 0, 0.94) 80%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.24) 22%,
+    rgba(0, 0, 0, 0.55) 42%,
+    rgba(0, 0, 0, 0.8) 62%,
+    rgba(0, 0, 0, 0.94) 80%,
+    #000 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.ov-welcome__visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 10, 20, 0.18) 0%, rgba(6, 10, 20, 0) 30%);
+}
+
+.ov-welcome__visual .wv {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 720px) {
+  .ov-welcome {
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    align-items: stretch;
+  }
+
+  .ov-welcome__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px 16px 30px 32px;
+  }
+
+  .ov-welcome__visual {
+    min-height: 208px;
+    opacity: 1;
+  }
+
+  .ov-welcome__visual::after {
+    background: linear-gradient(180deg, rgba(6, 10, 20, 0.08) 0%, rgba(6, 10, 20, 0) 24%);
+  }
+}
+
+@media (min-width: 720px) and (max-width: 959px) {
+  .ov-welcome__visual { opacity: 0.86; }
+}
+
+.wv__scene { animation: wv-scene-in 1.1s ease both; }
+
+.wv__line {
+  fill: none;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wv__draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: wv-draw 2.3s cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
+}
+
+.wv__float { animation: wv-float 9s ease-in-out infinite alternate; }
+
+.wv__sway {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: wv-sway 7s ease-in-out infinite alternate;
+}
+
+.wv__star {
+  fill: rgba(224, 238, 255, 0.8);
+  animation: wv-twinkle 4s ease-in-out infinite;
+}
+
+.wv__firefly {
+  fill: rgba(255, 232, 160, 0.9);
+  animation: wv-firefly 5s ease-in-out infinite;
+}
+
+.wv__ray {
+  stroke: rgba(255, 214, 150, 0.42);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wv-ray 7s ease-in-out infinite alternate;
+}
+
+.wv__bird {
+  stroke: rgba(220, 235, 245, 0.42);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wv-bird 12s ease-in-out infinite alternate;
+}
+
+.wv__cloud { stroke: rgba(220, 226, 255, 0.2); }
+.wv__mist { stroke: rgba(255, 230, 200, 0.2); }
+
+.wv__heat {
+  stroke: rgba(255, 190, 110, 0.3);
+  stroke-width: 1.2;
+  animation: wv-heat 5s ease-in-out infinite;
+}
+
+.wv__dust-dot {
+  fill: rgba(255, 220, 170, 0.55);
+  animation: wv-dust 9s ease-in-out infinite alternate;
+}
+
+.wv__fox-tail {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+  animation: wv-tail 5s ease-in-out infinite alternate;
+}
+
+.wv__shoot {
+  stroke: rgba(230, 242, 255, 0.75);
+  stroke-width: 1.3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  animation: wv-shoot 7s ease-in-out infinite;
+}
+
+.wv__drift { animation: wv-drift 18s ease-in-out infinite alternate; }
+
+@keyframes wv-scene-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes wv-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes wv-float {
+  from { transform: translateY(-4px); }
+  to { transform: translateY(5px); }
+}
+
+@keyframes wv-sway {
+  from { transform: rotate(-1.2deg); }
+  to { transform: rotate(1.2deg); }
+}
+
+@keyframes wv-twinkle {
+  0%, 100% { opacity: 0.22; }
+  50% { opacity: 1; }
+}
+
+@keyframes wv-firefly {
+  0%, 100% { opacity: 0.08; transform: translateY(0); }
+  50% { opacity: 0.9; transform: translateY(-6px); }
+}
+
+@keyframes wv-ray {
+  from { opacity: 0.25; transform: scale(0.96); }
+  to { opacity: 0.65; transform: scale(1.04); }
+}
+
+@keyframes wv-bird {
+  from { transform: translate(-10px, 4px); }
+  to { transform: translate(18px, -8px); }
+}
+
+@keyframes wv-dust {
+  from { transform: translate(0, 0); opacity: 0.2; }
+  to { transform: translate(10px, -8px); opacity: 0.7; }
+}
+
+@keyframes wv-heat {
+  0%, 100% { opacity: 0.2; transform: translateY(0); }
+  50% { opacity: 0.55; transform: translateY(-4px); }
+}
+
+@keyframes wv-tail {
+  from { transform: rotate(-2deg); }
+  to { transform: rotate(3deg); }
+}
+
+@keyframes wv-shoot {
+  0%, 68% { opacity: 0; stroke-dashoffset: 1; }
+  74% { opacity: 0.9; }
+  88%, 100% { opacity: 0; stroke-dashoffset: 0; }
+}
+
+@keyframes wv-drift {
+  from { transform: translateX(-12px); }
+  to { transform: translateX(16px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ov-welcome__visual .wv__scene,
+  .ov-welcome__visual .wv__draw,
+  .ov-welcome__visual .wv__float,
+  .ov-welcome__visual .wv__sway,
+  .ov-welcome__visual .wv__star,
+  .ov-welcome__visual .wv__firefly,
+  .ov-welcome__visual .wv__ray,
+  .ov-welcome__visual .wv__bird,
+  .ov-welcome__visual .wv__dust-dot,
+  .ov-welcome__visual .wv__heat,
+  .ov-welcome__visual .wv__fox-tail,
+  .ov-welcome__visual .wv__shoot,
+  .ov-welcome__visual .wv__drift {
+    animation: none;
+  }
+
+  .ov-welcome__visual .wv__draw { stroke-dashoffset: 0; }
+}
+
+/* --------------------------- dot separated meta --------------------------- */
+
+.ov-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12.5px;
+  color: var(--faint-on-dark);
+}
+
+.ov-meta__item { display: inline-flex; align-items: center; }
+
+.ov-meta__item + .ov-meta__item::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin: 0 9px;
+  border-radius: 50%;
+  background: var(--night-500);
+}
+
+/* ------------------------------ error strip ------------------------------- */
+
+.ov-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* --------------------------- workspace summary ---------------------------
+   One open strip, not three stat cards: a hairline separates it from the
+   welcome, counts share a single baseline, and kiwi appears only on the
+   small icon plates. */
+
+.ov-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-dark);
+}
+
+.ov-summary__title {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint-on-dark);
+}
+
+.ov-summary__stats {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ov-stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 22px;
+  border-left: 1px solid var(--border-dark);
+}
+
+.ov-stat:first-child { border-left: 0; padding-left: 0; }
+.ov-stat:last-child { padding-right: 0; }
+
+.ov-stat__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  color: var(--kiwi-400);
+  background: var(--kiwi-glow-soft);
+  border: 1px solid rgba(181, 232, 74, 0.14);
+}
+
+.ov-stat__body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  line-height: 1.15;
+}
+
+.ov-stat__value {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 20px;
+  color: var(--text-on-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+/* While the workspace summary loads, show a quiet placeholder instead of a
+   text glyph, so no characters flash in before the real counts arrive. */
+.ov-stat__value--loading {
+  display: block;
+  width: 22px;
+  height: 20px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    rgba(237, 241, 247, 0.07) 0%,
+    rgba(237, 241, 247, 0.17) 50%,
+    rgba(237, 241, 247, 0.07) 100%
+  );
+  background-size: 220% 100%;
+  animation: ov-shimmer 1.1s ease-in-out infinite;
+}
+
+@keyframes ov-shimmer {
+  from { background-position: 120% 0; }
+  to { background-position: -120% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ov-stat__value--loading { animation: none; }
+}
+
+.ov-stat__label {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint-on-dark);
+}
+
+@media (max-width: 719px) {
+  .ov-summary { flex-direction: column; align-items: stretch; gap: 12px; }
+
+  .ov-summary__stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ov-stat { padding: 0 12px; min-width: 0; }
+  .ov-stat:first-child { padding-left: 0; }
+}
+
+@media (max-width: 420px) {
+  .ov-stat { gap: 8px; padding: 0 9px; }
+  .ov-stat__icon { width: 24px; height: 24px; border-radius: 7px; }
+  .ov-stat__value { font-size: 17px; line-height: 18px; }
+  .ov-stat__value--loading { width: 18px; height: 18px; }
+  .ov-stat__label { font-size: 9.5px; letter-spacing: 0.06em; }
+}
+
+/* ------------------------------ section block ----------------------------- */
+/* A quiet header plus open content. No card around every section. */
+
+.ov-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ov-block__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+}
+
+.ov-block__head > div { min-width: 0; }
+
+.ov-block__title {
+  font-size: 16px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--text-on-dark);
+}
+
+.ov-block__sub {
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--faint-on-dark);
+}
+
+.ov-block__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-top: 2px;
+}
+
+@media (max-width: 480px) {
+  .ov-block__link--muted { display: none; }
+}
+
+.ov-block__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--kiwi-400);
+  white-space: nowrap;
+  transition: color 0.14s var(--ease-out);
+}
+
+.ov-block__link svg { transition: transform 0.16s var(--ease-out); }
+.ov-block__link:hover { color: var(--kiwi-300); }
+.ov-block__link:hover svg { transform: translateX(2px); }
+
+.ov-block__link--muted {
+  font-weight: 500;
+  color: var(--muted-on-dark);
+}
+
+.ov-block__link--muted:hover { color: var(--text-on-dark); }
+.ov-block__link--muted:hover svg { transform: none; }
+
+.ov-block__link:focus-visible {
+  outline: 2px solid var(--kiwi-500);
+  outline-offset: 3px;
+}
+
+/* ------------------------------ your projects ----------------------------- */
+
+.ov-projects {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 760px) {
+  .ov-projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.ov-project {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--night-850);
+  border: 1px solid var(--border-dark);
+  transition: border-color 0.15s var(--ease-out), background 0.15s var(--ease-out);
+}
+
+.ov-project:hover {
+  background: var(--night-800);
+  border-color: rgba(181, 232, 74, 0.24);
+}
+
+.ov-project:focus-visible {
+  outline: 2px solid var(--kiwi-500);
+  outline-offset: 2px;
+}
+
+.ov-project__mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  color: var(--kiwi-400);
+  background: var(--night-800);
+  border: 1px solid var(--border-dark);
+  transition: background 0.15s var(--ease-out), border-color 0.15s var(--ease-out);
+}
+
+.ov-project:hover .ov-project__mark {
+  background: rgba(181, 232, 74, 0.08);
+  border-color: rgba(181, 232, 74, 0.2);
+}
+
+.ov-project__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ov-project__title {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ov-project__meta {
+  margin-top: 3px;
+  font-size: 11.5px;
+}
+
+.ov-project__side {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ov-project__role {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--faint-on-dark);
+}
+
+@media (max-width: 520px) {
+  .ov-project__role { display: none; }
+}
+
+.ov-status {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: var(--radius-pill);
+  font-size: 10.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--muted-on-dark);
+  background: rgba(237, 241, 247, 0.04);
+  border: 1px solid var(--border-dark);
+}
+
+.ov-status--in_progress {
+  color: var(--kiwi-300);
+  background: var(--kiwi-glow-soft);
+  border-color: rgba(181, 232, 74, 0.28);
+}
+
+.ov-status--completed { color: var(--text-on-dark); }
+
+/* --------------------------- first project empty -------------------------- */
+
+.ov-firstbuild {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--border-dark);
+  background:
+    linear-gradient(120deg, rgba(181, 232, 74, 0.06), transparent 58%),
+    var(--night-900);
+}
+
+.ov-firstbuild__art {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  color: var(--kiwi-500);
+}
+
+.ov-firstbuild__copy {
+  flex: 1;
+  min-width: 190px;
+}
+
+.ov-firstbuild__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+}
+
+.ov-firstbuild__text {
+  margin-top: 3px;
+  font-size: 12.5px;
+  color: var(--muted-on-dark);
+  max-width: 48ch;
+}
+
+@media (max-width: 520px) {
+  .ov-firstbuild { gap: 12px; padding: 14px; }
+  .ov-firstbuild__art { width: 40px; height: 40px; }
+}
+
+/* --------------------------- discover opportunities ----------------------- */
+
+.ov-opps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 760px) {
+  .ov-opps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.ov-opp {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  height: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--night-850);
+  border: 1px solid var(--border-dark);
+  transition:
+    border-color 0.15s var(--ease-out),
+    background 0.15s var(--ease-out);
+}
+
+.ov-opp:hover {
+  background: var(--night-800);
+  border-color: rgba(181, 232, 74, 0.26);
+}
+
+.ov-opp:focus-visible {
+  outline: 2px solid var(--kiwi-500);
+  outline-offset: 2px;
+}
+
+.ov-opp__type {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  color: var(--kiwi-400);
+  background: var(--kiwi-glow-soft);
+  border: 1px solid rgba(181, 232, 74, 0.16);
+}
+
+.ov-opp__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ov-opp__title {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-on-dark);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ov-opp__org {
+  display: block;
+  margin-top: 1px;
+  font-size: 12px;
+  color: var(--muted-on-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ov-opp__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  margin-top: 8px;
+}
+
+.ov-opp__kind {
+  display: inline-flex;
+  align-items: center;
+  height: 19px;
+  padding: 0 7px;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted-on-dark);
+  background: rgba(237, 241, 247, 0.05);
+  border: 1px solid var(--border-dark);
+}
+
+.ov-opp__meta-line {
+  font-size: 11px;
+  color: var(--faint-on-dark);
+}
+
+.ov-opp__verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--kiwi-300);
+}
+
+/* ------------------------- opportunities empty note ----------------------- */
+
+.ov-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 4px 0;
+}
+
+.ov-note__icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  color: var(--kiwi-400);
+  background: var(--kiwi-glow-soft);
+  border: 1px solid rgba(181, 232, 74, 0.14);
+}
+
+.ov-note__text {
+  flex: 1;
+  min-width: 210px;
+  font-size: 12.5px;
+  color: var(--muted-on-dark);
+}
+
+/* ----------------------------- recent activity ---------------------------- */
+
+.ov-feed {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ov-feed::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--border-dark), rgba(237, 241, 247, 0.02));
+}
+
+.ov-feed__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0 9px 34px;
+  border-radius: 8px;
+}
+
+.ov-feed__item:focus-visible {
+  outline: 2px solid var(--kiwi-500);
+  outline-offset: 2px;
+}
+
+.ov-feed__mark {
+  position: absolute;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-left: 0;
+  border-radius: 50%;
+  color: var(--kiwi-400);
+  background: var(--night-850);
+  border: 1px solid var(--border-dark);
+}
+
+
+.ov-feed__text {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--muted-on-dark);
+  transition: color 0.14s var(--ease-out);
+}
+
+.ov-feed__item:hover .ov-feed__text { color: var(--text-on-dark); }
+
+.ov-feed__time {
+  flex-shrink: 0;
+  font-size: 11.5px;
+  color: var(--faint-on-dark);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ov-feed-empty {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12.5px;
+  color: var(--faint-on-dark);
+}
+
+.ov-feed-empty svg { flex-shrink: 0; color: var(--night-500); }
+
+/* ---------------------------- AADI identity ------------------------------- */
+
+.ov-idcard {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 20px 18px 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-dark);
+  background:
+    radial-gradient(ellipse 58% 150% at 0% 0%, rgba(181, 232, 74, 0.07), transparent 68%),
+    var(--night-900);
+}
+
+.ov-idcard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--kiwi-500), rgba(181, 232, 74, 0.04));
+}
+
+@media (min-width: 720px) {
+  .ov-idcard {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+}
+
+.ov-idcard__identity { min-width: 0; }
+
+.ov-idcard__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint-on-dark);
+}
+
+.ov-idcard__number {
+  margin-top: 5px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.6vw, 24px);
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  line-height: 1.1;
+  color: var(--kiwi-500);
+}
+
+.ov-idcard__name {
+  margin-top: 4px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+}
+
+.ov-idcard__meta { margin-top: 4px; font-size: 12px; }
+
+.ov-idcard__skeleton {
+  display: block;
+  border-radius: 5px;
+  background: linear-gradient(
+    90deg,
+    rgba(237, 241, 247, 0.07) 0%,
+    rgba(237, 241, 247, 0.16) 50%,
+    rgba(237, 241, 247, 0.07) 100%
+  );
+  background-size: 220% 100%;
+  animation: ov-shimmer 1.1s ease-in-out infinite;
+}
+
+.ov-idcard__skeleton--id {
+  width: 172px;
+  max-width: 62%;
+  height: 23px;
+  margin-top: 6px;
+}
+
+.ov-idcard__skeleton--name {
+  width: 124px;
+  max-width: 46%;
+  height: 13px;
+  margin-top: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ov-idcard__skeleton { animation: none; }
+}
+
+.ov-idcard__side {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+@media (min-width: 720px) {
+  .ov-idcard__side { flex-direction: column; align-items: flex-end; gap: 9px; }
+}
+
+.ov-idcard__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--faint-on-dark);
+}
+
+.ov-idcard__status--done { color: var(--kiwi-300); }
+
+.ov-idcard__meter {
+  display: block;
+  width: 64px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(237, 241, 247, 0.13);
+  overflow: hidden;
+}
+
+.ov-idcard__meter > i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(181, 232, 74, 0.55), var(--kiwi-500));
+}
+
+

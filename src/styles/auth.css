@@ -399,6 +399,94 @@
   color: var(--muted-on-light);
 }
 
+/* ---- Progress indicator ---- */
+.auth__progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.auth__progress-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.auth__progress-step--active,
+.auth__progress-step--done {
+  opacity: 1;
+}
+
+.auth__progress-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: var(--border-light-strong);
+  color: var(--muted-on-light);
+  transition: all 0.3s ease;
+}
+
+.auth__progress-step--active .auth__progress-num {
+  background: var(--kiwi-500);
+  color: var(--ink);
+}
+
+.auth__progress-step--done .auth__progress-num {
+  background: var(--kiwi-500);
+  color: var(--ink);
+  font-size: 0.55rem;
+}
+
+.auth__progress-text {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-on-light);
+}
+
+.auth__progress-step--active .auth__progress-text {
+  color: var(--ink);
+}
+
+.auth__progress-sep {
+  font-size: 0.7rem;
+  color: var(--muted-on-light);
+  opacity: 0.4;
+}
+
+/* ---- Success state (account created) ---- */
+.auth__success-state {
+  text-align: center;
+  padding: 40px 0;
+  animation: auth-form-in 0.5s var(--ease-out) both;
+}
+
+.auth__success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--kiwi-500);
+  color: var(--ink);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
 .auth__switch a {
   font-weight: 600;
   color: var(--ink);
