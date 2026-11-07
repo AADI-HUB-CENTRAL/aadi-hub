@@ -1,6 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Rangoli } from './DiwaliHeroDecorations.jsx'
-import { fetchDiwaliCelebrations } from '../../lib/diwaliCelebrations.js'
+import {
+  DIWALI_CELEBRATION_LIMIT,
+  fetchDiwaliCelebrations,
+  subscribeToDiwaliCelebrations,
+} from '../../lib/diwaliCelebrations.js'
 
 const MIN_LOOP_ITEMS = 6
 const REFRESH_INTERVAL_MS = 15000
@@ -56,6 +60,7 @@ export default function DiwaliRecentCelebrations({
   useEffect(() => {
     let cancelled = false
     let intervalId = 0
+    let unsubscribeRealtime = () => {}
 
     const load = async ({ showLoading = false } = {}) => {
       if (showLoading && !cancelled) {
@@ -82,6 +87,34 @@ export default function DiwaliRecentCelebrations({
 
     load({ showLoading: true })
 
+    unsubscribeRealtime = subscribeToDiwaliCelebrations({
+      onInsert: (entry) => {
+        if (cancelled) return
+
+        setEntries((current) => {
+          if (current.some((item) => item.id === entry.id)) {
+            return current
+          }
+
+          const next = [entry, ...current]
+          next.sort((first, second) => {
+            const firstTime = Date.parse(first.created_at) || 0
+            const secondTime = Date.parse(second.created_at) || 0
+            return secondTime - firstTime
+          })
+
+          return next.slice(0, DIWALI_CELEBRATION_LIMIT)
+        })
+        setStatus('ready')
+      },
+      onError: () => {
+        if (!cancelled) {
+          // Keep polling as fallback when realtime cannot connect.
+          setStatus((current) => (current === 'ready' ? current : 'error'))
+        }
+      },
+    })
+
     intervalId = window.setInterval(() => {
       if (document.visibilityState === 'visible') {
         load()
@@ -100,6 +133,7 @@ export default function DiwaliRecentCelebrations({
 
     return () => {
       cancelled = true
+      unsubscribeRealtime()
       window.clearInterval(intervalId)
       document.removeEventListener('visibilitychange', handleVisibility)
       window.removeEventListener('focus', handleVisibility)
@@ -179,7 +213,9 @@ export default function DiwaliRecentCelebrations({
             </span>
             <p className="dw-recent__empty-title">Be the first to light a diya.</p>
             <p className="dw-recent__empty-text">
-              Your name will appear here with the rest of the AADI HUB family.
+              {status === 'unavailable'
+                ? 'Celebration wall setup is in progress. Please try again in a moment.'
+                : 'Your name will appear here with the rest of the AADI HUB family.'}
             </p>
           </div>
         )}
@@ -227,9 +263,11 @@ export default function DiwaliRecentCelebrations({
         )}
 
         <p className="dw-recent__note">
-          {ownCelebration
-            ? 'You are part of the AADI HUB Diwali family.'
-            : 'Every celebration adds a little more light.'}
+          {status === 'error'
+            ? 'Connection is unstable. We are retrying automatically.'
+            : ownCelebration
+              ? 'You are part of the AADI HUB Diwali family.'
+              : 'Every celebration adds a little more light.'}
         </p>
       </div>
     </section>

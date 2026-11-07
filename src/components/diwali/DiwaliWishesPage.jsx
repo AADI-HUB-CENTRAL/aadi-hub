@@ -102,25 +102,21 @@ export default function DiwaliWishesPage() {
 
     savedCelebrationRef.current = celebrationId
 
-    setOwnCelebration({
-      id: celebrationId,
-      display_name: enteredName,
-      created_at: new Date().toISOString(),
-    })
-
     saveDiwaliCelebration(enteredName, celebrationId)
       .then((result) => {
-        if (result.entry) {
+        if (result.entry && (!result.error || result.duplicate)) {
           setOwnCelebration(result.entry)
         }
 
         if (!result.error || result.duplicate) {
           setCelebrationRefreshKey((value) => value + 1)
         } else {
+          setOwnCelebration(null)
           savedCelebrationRef.current = ''
         }
       })
       .catch(() => {
+        setOwnCelebration(null)
         savedCelebrationRef.current = ''
       })
   }

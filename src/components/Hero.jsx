@@ -163,7 +163,7 @@ export default function Hero() {
 
           <Reveal delay={540}>
             <div className="btn-row">
-              <Button href="/register" variant="primary" size="lg">
+              <Button href="/form" variant="primary" size="lg">
                 Join the Movement
               </Button>
               <Button href="#ecosystem" variant="secondary" size="lg" arrow>
