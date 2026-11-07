@@ -1,8 +1,11 @@
 import Button from '../ui/Button.jsx'
+import { DiwaliMusicButton } from './DiwaliMusicController.jsx'
 
 export default function DiwaliGreeting() {
   return (
     <div className="diwali-greeting">
+      <DiwaliMusicButton className="diwali-greeting__music" />
+
       <span className="diwali-greeting__label">
         <span className="diwali-greeting__diamond" aria-hidden="true" />
         AADI HUB &middot; FESTIVE EDITION 2026

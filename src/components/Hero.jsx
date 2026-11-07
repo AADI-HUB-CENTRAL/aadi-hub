@@ -6,6 +6,7 @@ import { Shield, Flag, Users, Globe, Code, Target, Compass } from './ui/Icons.js
 import { useDiwaliCampaign } from './diwali/DiwaliCampaignController.jsx'
 import DiwaliGreeting from './diwali/DiwaliGreeting.jsx'
 import DiwaliHeroDecorations from './diwali/DiwaliHeroDecorations.jsx'
+import SwingingHeroGarlands from './diwali/SwingingHeroGarlands.jsx'
 
 const ORB_CARDS = [
   { icon: Shield, title: 'AADI ID', sub: 'One identity', pos: [16, 25] },
@@ -107,6 +108,7 @@ export default function Hero() {
       <div className="grid-bg grid-bg--masked" aria-hidden="true" />
       <div className="glow-kiwi" style={{ top: '-12%', right: '-8%', width: '52vw', height: '52vw', maxWidth: 720, maxHeight: 720 }} aria-hidden="true" />
       {diwaliActive && <DiwaliHeroDecorations />}
+      {diwaliActive && <SwingingHeroGarlands />}
 
       <div className="container hero__grid">
         <h1 className="hero__title hero__title--mobile">

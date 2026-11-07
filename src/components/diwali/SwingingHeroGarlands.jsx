@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Marigold } from './DiwaliHeroDecorations.jsx'
+import { Garland, Marigold } from './DiwaliHeroDecorations.jsx'
 
 const FLOWERS = Array.from({ length: 23 }, (_, index) => {
   const tones = ['deep', 'orange', 'gold']
@@ -148,20 +148,23 @@ function HangingGarland() {
 export default function SwingingHeroGarlands() {
   const leftRef = useRef(null)
   const rightRef = useRef(null)
+  const topRef = useRef(null)
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const mobile = window.matchMedia('(max-width: 760px)').matches
+    const mobile = window.matchMedia('(max-width: 768px)').matches
     if (reduced || !mobile) return undefined
     if (typeof window.DeviceOrientationEvent === 'undefined') return undefined
 
     const left = leftRef.current
     const right = rightRef.current
-    if (!left || !right) return undefined
+    const top = topRef.current
+    if (!left || !right || !top) return undefined
 
     const motion = {
       left: { angle: 0, velocity: 0, target: 0, stiffness: 30, damping: 6.8, gain: 1 },
       right: { angle: 0, velocity: 0, target: 0, stiffness: 24, damping: 6.1, gain: 0.82 },
+      top: { x: 0, velocity: 0, target: 0, stiffness: 26, damping: 6.6 },
     }
 
     let frame = 0
@@ -174,22 +177,33 @@ export default function SwingingHeroGarlands() {
     let lastMovement = 0
     let live = false
 
-    const settle = (entry, dt) => {
-      const accel = (entry.target - entry.angle) * entry.stiffness - entry.velocity * entry.damping
+    const settleAngle = (entry, dt, desired) => {
+      const accel = (desired - entry.angle) * entry.stiffness - entry.velocity * entry.damping
       entry.velocity += accel * dt
       entry.angle += entry.velocity * dt
       entry.angle = clamp(entry.angle, -7, 7)
+    }
+
+    const settleX = (entry, dt, desired) => {
+      const accel = (desired - entry.x) * entry.stiffness - entry.velocity * entry.damping
+      entry.velocity += accel * dt
+      entry.x += entry.velocity * dt
+      entry.x = clamp(entry.x, -16, 16)
     }
 
     const tick = (time) => {
       const dt = lastFrame ? Math.min((time - lastFrame) / 1000, 0.034) : 1 / 60
       lastFrame = time
 
-      settle(motion.left, dt)
-      settle(motion.right, dt)
+      const ambient = Math.sin(time / 1500) * 0.7
+
+      settleAngle(motion.left, dt, motion.left.target + ambient)
+      settleAngle(motion.right, dt, motion.right.target - ambient * 0.75)
+      settleX(motion.top, dt, motion.top.target + ambient * 2.4)
 
       left.style.setProperty('--sway-angle', `${motion.left.angle.toFixed(3)}deg`)
       right.style.setProperty('--sway-angle', `${motion.right.angle.toFixed(3)}deg`)
+      top.style.setProperty('--sway-x', `${motion.top.x.toFixed(2)}px`)
 
       frame = window.requestAnimationFrame(tick)
     }
@@ -210,6 +224,7 @@ export default function SwingingHeroGarlands() {
         live = true
         left.classList.add('is-live')
         right.classList.add('is-live')
+        top.classList.add('is-live')
         smoothedGamma = gamma
         baseline = gamma
         lastGamma = gamma
@@ -238,11 +253,13 @@ export default function SwingingHeroGarlands() {
         const direction = Math.sign(dGamma) || Math.sign(dBeta) || 1
         motion.left.velocity += direction * shake
         motion.right.velocity += direction * shake * 0.78
+        motion.top.velocity += direction * shake * 2.2
         lastMovement = now
       }
 
       motion.left.target = target * motion.left.gain
       motion.right.target = target * motion.right.gain
+      motion.top.target = clamp(relativeTilt * 1.4, -13, 13)
 
       if (now - lastMovement > 900) {
         baseline += (smoothedGamma - baseline) * 0.035
@@ -303,6 +320,12 @@ export default function SwingingHeroGarlands() {
 
   return (
     <div className="hero-garlands" aria-hidden="true">
+      <div className="hero-garland-top" ref={topRef}>
+        <div className="hero-garland-top__rest">
+          <Garland className="hero-garland-top__svg" />
+        </div>
+      </div>
+
       <div className="hero-garland hero-garland--left" ref={leftRef}>
         <div className="hero-garland__mirror">
           <div className="hero-garland__rest">

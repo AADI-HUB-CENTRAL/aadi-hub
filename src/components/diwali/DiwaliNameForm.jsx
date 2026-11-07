@@ -49,7 +49,7 @@ export default function DiwaliNameForm({ initialName = '', onSubmit }) {
       </div>
 
       <p className="dw-form__hint" id="diwali-name-hint">
-        No sign-up needed. Your wish stays on this device.
+        No sign-up needed. Your name will appear on the AADI HUB Diwali family wall.
       </p>
 
       <p className="dw-form__error" id="diwali-name-error" role="alert" aria-live="polite">

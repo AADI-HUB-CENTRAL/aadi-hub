@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { Rangoli } from './DiwaliHeroDecorations.jsx'
 import teamMembers from '../../data/teamMembers.js'
 
@@ -97,24 +98,24 @@ export default function DiwaliFoundingTeamSection() {
     const mobileQuery = window.matchMedia('(max-width: 760px)')
 
     const syncLoop = () => {
-      const totalWidth = track.scrollWidth || 0
-      const singleGroupWidth = totalWidth > 0 ? Math.max(1, totalWidth / 2) : group.getBoundingClientRect().width
-      const exactShift = Math.ceil(singleGroupWidth)
-
-      track.style.setProperty('--dw-team-shift', `${-exactShift}px`)
-
-      if (mobileQuery.matches) {
-        const durationSeconds = Math.max(12, (exactShift / MOBILE_TEAM_SPEED).toFixed(2))
-        track.style.setProperty('--dw-team-duration', `${durationSeconds}s`)
-      } else {
+      if (!mobileQuery.matches) {
         track.style.removeProperty('--dw-team-duration')
+        return
       }
+
+      const measuredGroupWidth = group.getBoundingClientRect().width
+      const fallbackWidth = (track.scrollWidth || 0) / 2
+      const singleGroupWidth = measuredGroupWidth > 0 ? measuredGroupWidth : fallbackWidth
+      const exactShift = Math.max(1, singleGroupWidth)
+      const durationSeconds = Math.max(12, (exactShift / MOBILE_TEAM_SPEED).toFixed(2))
+
+      track.style.setProperty('--dw-team-duration', `${durationSeconds}s`)
     }
 
     syncLoop()
 
     const observer = new ResizeObserver(syncLoop)
-    observer.observe(track)
+    observer.observe(group)
     mobileQuery.addEventListener('change', syncLoop)
 
     return () => {
@@ -230,6 +231,11 @@ export default function DiwaliFoundingTeamSection() {
             May this festival bring new ideas, stronger bonds and brighter
             beginnings.
           </p>
+          <div className="dw-team__cta-wrap">
+            <Link className="dw-btn dw-btn--outline dw-team__cta" to="/team">
+              See All Team Members
+            </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -2,12 +2,14 @@ import { Link } from 'react-router-dom'
 import { Rangoli } from './DiwaliHeroDecorations.jsx'
 import DiwaliFestivalInfo from './DiwaliFestivalInfo.jsx'
 import DiwaliFoundingTeamSection from './DiwaliFoundingTeamSection.jsx'
+import DiwaliRecentCelebrations from './DiwaliRecentCelebrations.jsx'
 
 export default function DiwaliGreetingReveal({
   name,
   onReplay,
   onShare,
-  shareStatus,
+  ownCelebration,
+  celebrationRefreshKey,
 }) {
   return (
     <div className="dw-reveal">
@@ -56,11 +58,12 @@ export default function DiwaliGreetingReveal({
             Back to AADI HUB
           </Link>
         </div>
-
-        <p className="dw-reveal__status" role="status" aria-live="polite">
-          {shareStatus}
-        </p>
       </section>
+
+      <DiwaliRecentCelebrations
+        ownCelebration={ownCelebration}
+        refreshKey={celebrationRefreshKey}
+      />
 
       <DiwaliFoundingTeamSection />
 

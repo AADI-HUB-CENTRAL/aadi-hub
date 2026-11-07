@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { BrandSymbol } from './Logo.jsx'
+import { useDiwaliCampaign } from './diwali/DiwaliCampaignController.jsx'
 
 const SESSION_KEY = 'aadi_mobile_continue'
 const MOBILE_QUERY = '(max-width: 768px)'
@@ -27,6 +28,10 @@ function isMobileViewport() {
   } catch {
     return false
   }
+}
+
+function isMusicPromptOpen() {
+  return document.documentElement.dataset.diwaliMusicPrompt === 'true'
 }
 
 export default function MobileExperiencePrompt() {
@@ -125,6 +130,8 @@ export default function MobileExperiencePrompt() {
   useEffect(() => {
     if (!open) return
     const onKey = (e) => {
+      if (isMusicPromptOpen()) return
+
       if (e.key === 'Escape') {
         e.preventDefault()
         dismiss()

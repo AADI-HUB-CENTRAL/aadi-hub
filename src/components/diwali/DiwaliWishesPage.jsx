@@ -7,12 +7,15 @@ import DiwaliNameForm from './DiwaliNameForm.jsx'
 import DiwaliRocketScene from './DiwaliRocketScene.jsx'
 import DiwaliGrandFireworks from './DiwaliGrandFireworks.jsx'
 import DiwaliGreetingReveal from './DiwaliGreetingReveal.jsx'
+import DiwaliShareDialog from './DiwaliShareDialog.jsx'
+import { DiwaliMusicButton } from './DiwaliMusicController.jsx'
 import { Rangoli } from './DiwaliHeroDecorations.jsx'
 import { primeDiwaliAudio, playDiwaliLaunch, playDiwaliExplosion } from '../../lib/diwaliSound.js'
+import {
+  createCelebrationId,
+  saveDiwaliCelebration,
+} from '../../lib/diwaliCelebrations.js'
 import '../../styles/diwali-wishes.css'
-
-const SHARE_BLESSING =
-  'May the light of every diya brighten your life, may every new beginning bring opportunity, and may your dreams shine brighter with every passing day.'
 
 const HERO_SPARKLES = [
   { left: '9%', top: '26%', size: 7, duration: 5.2, delay: 0.2 },
@@ -39,32 +42,6 @@ function usePrefersReducedMotion() {
   return reduced
 }
 
-async function copyToClipboard(text) {
-  try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text)
-      return true
-    }
-  } catch {
-  }
-
-  try {
-    const textarea = document.createElement('textarea')
-    textarea.value = text
-    textarea.setAttribute('readonly', '')
-    textarea.style.position = 'fixed'
-    textarea.style.top = '-1000px'
-    textarea.style.opacity = '0'
-    document.body.appendChild(textarea)
-    textarea.select()
-    const copied = document.execCommand('copy')
-    document.body.removeChild(textarea)
-    return copied
-  } catch {
-    return false
-  }
-}
-
 export default function DiwaliWishesPage() {
   const active = useDiwaliCampaign()
   const reducedMotion = usePrefersReducedMotion()
@@ -74,8 +51,12 @@ export default function DiwaliWishesPage() {
   const [shaking, setShaking] = useState(false)
   const [showFinale, setShowFinale] = useState(false)
   const [soundOn, setSoundOn] = useState(false)
-  const [shareStatus, setShareStatus] = useState('')
+  const [shareOpen, setShareOpen] = useState(false)
+  const [ownCelebration, setOwnCelebration] = useState(null)
+  const [celebrationRefreshKey, setCelebrationRefreshKey] = useState(0)
   const shakeTimer = useRef(0)
+  const celebrationIdRef = useRef('')
+  const savedCelebrationRef = useRef('')
 
   useEffect(() => {
     if (!active) return undefined
@@ -111,11 +92,46 @@ export default function DiwaliWishesPage() {
     return <Navigate to="/" replace />
   }
 
+  const saveCelebration = (enteredName) => {
+    const celebrationId =
+      celebrationIdRef.current || createCelebrationId()
+
+    celebrationIdRef.current = celebrationId
+
+    if (savedCelebrationRef.current === celebrationId) return
+
+    savedCelebrationRef.current = celebrationId
+
+    setOwnCelebration({
+      id: celebrationId,
+      display_name: enteredName,
+      created_at: new Date().toISOString(),
+    })
+
+    saveDiwaliCelebration(enteredName, celebrationId)
+      .then((result) => {
+        if (result.entry) {
+          setOwnCelebration(result.entry)
+        }
+
+        if (!result.error || result.duplicate) {
+          setCelebrationRefreshKey((value) => value + 1)
+        } else {
+          savedCelebrationRef.current = ''
+        }
+      })
+      .catch(() => {
+        savedCelebrationRef.current = ''
+      })
+  }
+
   const handleCelebrate = (enteredName) => {
     setName(enteredName)
-    setShareStatus('')
     setShowFinale(false)
     setShaking(false)
+    setOwnCelebration(null)
+    celebrationIdRef.current = createCelebrationId()
+    savedCelebrationRef.current = ''
     setPhase('scene')
     setRunId((value) => value + 1)
     if (soundOn) primeDiwaliAudio()
@@ -142,40 +158,20 @@ export default function DiwaliWishesPage() {
 
   const handleComplete = () => {
     setPhase('reveal')
-    setShareStatus('')
+    saveCelebration(name)
   }
 
   const handleReplay = () => {
-    setShareStatus('')
     setShowFinale(false)
     setShaking(false)
+    setShareOpen(false)
     setPhase('scene')
     setRunId((value) => value + 1)
     if (soundOn) primeDiwaliAudio()
   }
 
-  const handleShare = async () => {
-    const message = `Happy Diwali, ${name}! ${SHARE_BLESSING} With warm wishes – AADI HUB.`
-
-    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
-      try {
-        await navigator.share({
-          title: 'Happy Diwali from AADI HUB',
-          text: message,
-        })
-        setShareStatus('Your Diwali wish is ready to share.')
-        return
-      } catch (error) {
-        if (error?.name === 'AbortError') return
-      }
-    }
-
-    const copied = await copyToClipboard(message)
-    setShareStatus(
-      copied
-        ? 'Your Diwali wish has been copied to the clipboard.'
-        : 'Sharing is not available in this browser. Please copy the greeting above.'
-    )
+  const handleShare = () => {
+    setShareOpen(true)
   }
 
   const toggleSound = () => {
@@ -194,37 +190,44 @@ export default function DiwaliWishesPage() {
           <span>AADI HUB</span>
         </Link>
 
-        <button
-          className={`dw-sound${soundOn ? ' is-on' : ''}`}
-          type="button"
-          onClick={toggleSound}
-          aria-pressed={soundOn}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M4 9v6h4l5 4V5L8 9H4Z"
-              stroke="currentColor"
-              strokeWidth="1.7"
-              strokeLinejoin="round"
-            />
-            {soundOn ? (
+        <div className="dw-topbar__actions">
+          <DiwaliMusicButton
+            className="dw-sound dw-topbar__music"
+            showLabel={false}
+          />
+
+          <button
+            className={`dw-sound${soundOn ? ' is-on' : ''}`}
+            type="button"
+            onClick={toggleSound}
+            aria-pressed={soundOn}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
-                d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8 8 0 0 1 0 12"
+                d="M4 9v6h4l5 4V5L8 9H4Z"
                 stroke="currentColor"
                 strokeWidth="1.7"
-                strokeLinecap="round"
+                strokeLinejoin="round"
               />
-            ) : (
-              <path
-                d="m16.5 9 5 6M21.5 9l-5 6"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-              />
-            )}
-          </svg>
-          <span>{soundOn ? 'Sound on' : 'Sound off'}</span>
-        </button>
+              {soundOn ? (
+                <path
+                  d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8 8 0 0 1 0 12"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                />
+              ) : (
+                <path
+                  d="m16.5 9 5 6M21.5 9l-5 6"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                />
+              )}
+            </svg>
+            <span>{soundOn ? 'Sound on' : 'Sound off'}</span>
+          </button>
+        </div>
       </header>
 
       <div className={`dw-shell${shaking ? ' is-shaking' : ''}`}>
@@ -290,7 +293,8 @@ export default function DiwaliWishesPage() {
               name={name}
               onReplay={handleReplay}
               onShare={handleShare}
-              shareStatus={shareStatus}
+              ownCelebration={ownCelebration}
+              celebrationRefreshKey={celebrationRefreshKey}
             />
           </main>
         )}
@@ -299,6 +303,10 @@ export default function DiwaliWishesPage() {
           <DiwaliGrandFireworks onDone={() => setShowFinale(false)} />
         )}
       </div>
+
+      {shareOpen && (
+        <DiwaliShareDialog name={name} onClose={() => setShareOpen(false)} />
+      )}
     </div>
   )
 }
