@@ -11,7 +11,11 @@ import { createClient } from '@supabase/supabase-js'
 --------------------------------------------------------------------------- */
 
 const url = (import.meta.env.VITE_SUPABASE_URL || '').trim()
-const publishableKey = (import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '').trim()
+const publishableKey = (
+  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+  ''
+).trim()
 
 /** True only when both Supabase values look like real credentials. */
 export const isSupabaseConfigured = Boolean(
@@ -24,7 +28,7 @@ export const isSupabaseConfigured = Boolean(
 /** Human-readable explanation shown when Supabase is not set up yet. */
 export const SUPABASE_NOT_CONFIGURED_MESSAGE =
   'Supabase is not configured yet. Add VITE_SUPABASE_URL and ' +
-  'VITE_SUPABASE_PUBLISHABLE_KEY to your .env file, then restart the dev server. ' +
+  'VITE_SUPABASE_PUBLISHABLE_KEY (or VITE_SUPABASE_ANON_KEY) to your .env file, then restart the dev server. ' +
   'See docs/setup-and-deployment.md.'
 
 export const supabase = isSupabaseConfigured

@@ -53,7 +53,12 @@ export async function fetchDiwaliCelebrations(
   limit = DIWALI_CELEBRATION_LIMIT
 ) {
   if (!supabase) {
-    return { entries: [], error: null, unavailable: true }
+    return {
+      entries: [],
+      error: null,
+      unavailable: true,
+      unavailableReason: 'not_configured',
+    }
   }
 
   const { data, error } = await supabase
@@ -63,15 +68,23 @@ export async function fetchDiwaliCelebrations(
     .limit(limit)
 
   if (error) {
+    const unavailable = isMissingCelebrationsTableError(error)
+
     return {
       entries: [],
       error,
-      unavailable: isMissingCelebrationsTableError(error),
+      unavailable,
+      unavailableReason: unavailable ? 'missing_table' : null,
     }
   }
 
   const entries = (data || []).map(normalizeRow).filter(Boolean)
-  return { entries, error: null, unavailable: false }
+  return {
+    entries,
+    error: null,
+    unavailable: false,
+    unavailableReason: null,
+  }
 }
 
 export function subscribeToDiwaliCelebrations({ onInsert, onError }) {
@@ -135,6 +148,7 @@ export async function saveDiwaliCelebration(displayName, id) {
       entry: null,
       error: new Error('Supabase is not configured.'),
       unavailable: true,
+      unavailableReason: 'not_configured',
     }
   }
 
@@ -161,6 +175,9 @@ export async function saveDiwaliCelebration(displayName, id) {
       entry: null,
       error,
       unavailable: isMissingCelebrationsTableError(error),
+      unavailableReason: isMissingCelebrationsTableError(error)
+        ? 'missing_table'
+        : null,
     }
   }
 

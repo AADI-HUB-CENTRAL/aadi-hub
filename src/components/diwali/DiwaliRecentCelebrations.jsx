@@ -8,6 +8,7 @@ import {
 
 const MIN_LOOP_ITEMS = 6
 const REFRESH_INTERVAL_MS = 15000
+const MIN_ITEMS_FOR_MARQUEE = 3
 
 const CONFETTI = [
   { left: '6%', top: '16%', size: 6, duration: 6.2, delay: 0.4 },
@@ -42,6 +43,10 @@ function mergeCelebrations(entries, ownCelebration) {
 function buildLoopItems(entries) {
   if (entries.length === 0) return []
 
+  if (entries.length < MIN_ITEMS_FOR_MARQUEE) {
+    return entries
+  }
+
   const repeats =
     entries.length >= MIN_LOOP_ITEMS
       ? 1
@@ -56,6 +61,7 @@ export default function DiwaliRecentCelebrations({
 }) {
   const [entries, setEntries] = useState([])
   const [status, setStatus] = useState('loading')
+  const [unavailableReason, setUnavailableReason] = useState(null)
 
   useEffect(() => {
     let cancelled = false
@@ -77,11 +83,14 @@ export default function DiwaliRecentCelebrations({
 
       if (result.unavailable) {
         setStatus('unavailable')
+        setUnavailableReason(result.unavailableReason || null)
       } else if (result.error) {
         setStatus('error')
+        setUnavailableReason(null)
       } else {
         setEntries(result.entries)
         setStatus('ready')
+        setUnavailableReason(null)
       }
     }
 
@@ -147,6 +156,7 @@ export default function DiwaliRecentCelebrations({
   )
 
   const loopItems = useMemo(() => buildLoopItems(celebrations), [celebrations])
+  const useMarquee = celebrations.length >= MIN_ITEMS_FOR_MARQUEE
 
   const duration = Math.min(
     120,
@@ -213,14 +223,18 @@ export default function DiwaliRecentCelebrations({
             </span>
             <p className="dw-recent__empty-title">Be the first to light a diya.</p>
             <p className="dw-recent__empty-text">
-              {status === 'unavailable'
-                ? 'Celebration wall setup is in progress. Please try again in a moment.'
+              {status === 'unavailable' && unavailableReason === 'missing_table'
+                ? 'Celebration wall database is not ready yet. Apply the Diwali migration in Supabase and refresh.'
+                : status === 'unavailable' && unavailableReason === 'not_configured'
+                  ? 'Celebration wall is not connected yet. Add Supabase env variables and redeploy.'
+                  : status === 'unavailable'
+                    ? 'Celebration wall setup is in progress. Please try again in a moment.'
                 : 'Your name will appear here with the rest of the AADI HUB family.'}
             </p>
           </div>
         )}
 
-        {hasCelebrations && (
+        {hasCelebrations && useMarquee && (
           <div
             className="dw-recent__marquee"
             style={{ '--dw-recent-duration': `${duration}s` }}
@@ -258,6 +272,38 @@ export default function DiwaliRecentCelebrations({
                   })}
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {hasCelebrations && !useMarquee && (
+          <div className="dw-recent__marquee">
+            <div className="dw-recent__track">
+              <div className="dw-recent__group">
+                {celebrations.map((entry) => {
+                  const isOwn = ownCelebration && entry.id === ownCelebration.id
+
+                  return (
+                    <p
+                      className={`dw-recent__item${isOwn ? ' is-own' : ''}`}
+                      key={entry.id}
+                    >
+                      <span className="dw-recent__item-diya" aria-hidden="true">
+                        &#129684;
+                      </span>
+                      <span className="dw-recent__item-text">
+                        <strong className="dw-recent__name">
+                          {entry.display_name}
+                        </strong>{' '}
+                        celebrated Diwali with AADI HUB
+                      </span>
+                      <span className="dw-recent__item-star" aria-hidden="true">
+                        &#10022;
+                      </span>
+                    </p>
+                  )
+                })}
+              </div>
             </div>
           </div>
         )}
