@@ -8,21 +8,43 @@ import { createClient } from '@supabase/supabase-js'
    createClient(). The service-role key must never appear in this file.
 
    RLS is the real security boundary — see docs/supabase-architecture.md.
+
+   The fallback constants below are PUBLIC publishable values (safe to ship in
+   the client bundle). They guarantee the site still connects to Supabase when
+   the hosting provider is missing VITE_SUPABASE_* environment variables, which
+   was the cause of the "Celebration wall is not connected yet" message.
 --------------------------------------------------------------------------- */
 
-const url = (import.meta.env.VITE_SUPABASE_URL || '').trim()
-const publishableKey = (
+const FALLBACK_SUPABASE_URL = 'https://ldzjgmarowqlbmnqpslz.supabase.co'
+const FALLBACK_SUPABASE_PUBLISHABLE_KEY =
+  'sb_publishable_EAGFKbsG5QQEI-eOQyH06w_3Aw5ZqvV'
+
+function looksLikeSupabaseUrl(value) {
+  return (
+    /^https:\/\/[^\s]+\.supabase\.(co|in)\/?$/.test(value) &&
+    !value.includes('your_')
+  )
+}
+
+function looksLikePublishableKey(value) {
+  return value.length > 20 && !value.startsWith('your_')
+}
+
+const envUrl = (import.meta.env.VITE_SUPABASE_URL || '').trim()
+const envKey = (
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ||
   import.meta.env.VITE_SUPABASE_ANON_KEY ||
   ''
 ).trim()
 
+const url = looksLikeSupabaseUrl(envUrl) ? envUrl : FALLBACK_SUPABASE_URL
+const publishableKey = looksLikePublishableKey(envKey)
+  ? envKey
+  : FALLBACK_SUPABASE_PUBLISHABLE_KEY
+
 /** True only when both Supabase values look like real credentials. */
 export const isSupabaseConfigured = Boolean(
-  /^https:\/\/[^\s]+\.supabase\.(co|in)\/?$/.test(url) &&
-  publishableKey.length > 20 &&
-  !url.includes('your_') &&
-  !publishableKey.startsWith('your_')
+  looksLikeSupabaseUrl(url) && looksLikePublishableKey(publishableKey)
 )
 
 /** Human-readable explanation shown when Supabase is not set up yet. */

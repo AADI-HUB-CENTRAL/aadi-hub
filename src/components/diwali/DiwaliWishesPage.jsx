@@ -104,11 +104,16 @@ export default function DiwaliWishesPage() {
 
     saveDiwaliCelebration(enteredName, celebrationId)
       .then((result) => {
-        if (result.entry && (!result.error || result.duplicate)) {
+        // Keep the visitor's name visible even when the network is offline:
+        // the celebration is cached on the device and synced on a later visit.
+        if (result.entry) {
           setOwnCelebration(result.entry)
         }
 
-        if (!result.error || result.duplicate) {
+        if (
+          result.entry &&
+          (!result.error || result.duplicate || result.localOnly)
+        ) {
           setCelebrationRefreshKey((value) => value + 1)
         } else {
           setOwnCelebration(null)
