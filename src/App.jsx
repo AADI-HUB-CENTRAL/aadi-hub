@@ -31,8 +31,6 @@ import ShowcasePage from './components/ShowcasePage.jsx'
 import FormPage from './components/FormPage.jsx'
 import TeamPage from './components/TeamPage.jsx'
 import TeamMemberPage from './components/TeamMemberPage.jsx'
-import DiwaliWishesPage from './components/diwali/DiwaliWishesPage.jsx'
-import { DiwaliMusicProvider } from './components/diwali/DiwaliMusicController.jsx'
 
 import LoginPage from './product/pages/auth/LoginPage.jsx'
 import SignupPage from './product/pages/auth/SignupPage.jsx'
@@ -86,7 +84,7 @@ function LandingPage() {
 
 export default function App() {
   return (
-    <DiwaliMusicProvider>
+    <>
       <a href="#top" id="aadi-skip-link">
         Skip to content
       </a>
@@ -96,7 +94,6 @@ export default function App() {
         <Route path="/team" element={<ShowcasePage><TeamPage /></ShowcasePage>} />
         <Route path="/team/:slug" element={<ShowcasePage><TeamMemberPage /></ShowcasePage>} />
         <Route path="/form" element={<FormPage />} />
-        <Route path="/diwali-wishes" element={<DiwaliWishesPage />} />
 
         <Route path="/explore" element={<Navigate to="/" replace />} />
         <Route path="/explore/social" element={<ShowcasePage><Differentiation /></ShowcasePage>} />
@@ -147,6 +144,6 @@ export default function App() {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </DiwaliMusicProvider>
+    </>
   )
 }
