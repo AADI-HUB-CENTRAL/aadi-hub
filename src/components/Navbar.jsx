@@ -137,7 +137,6 @@ export default function Navbar() {
           </Link>
           <div className="nav__right">
             <Link className="nav__login" to="/team">Team</Link>
-            <Link className="nav__login" to="/login">Login</Link>
             <Button href="/form" variant="primary" size="sm" className="nav__register" arrow>Join AADI</Button>
           </div>
         </div>
@@ -184,9 +183,6 @@ export default function Navbar() {
         </nav>
 
         <div className="nav__right">
-          <Link className="nav__login" to="/login">
-            Login
-          </Link>
           <Button href="/form" variant="primary" size="sm" className="nav__register" arrow>
             Join AADI
           </Button>
@@ -245,9 +241,6 @@ export default function Navbar() {
           </nav>
           <div className="drawer__divider" />
           <div className="drawer__actions">
-            <Link className="drawer__login" to="/login" onClick={close}>
-              Login
-            </Link>
             <Button
               href="/form"
               variant="primary"
